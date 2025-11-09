@@ -1,0 +1,36 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "items": {
+        "properties": {
+            "configJsonSchema": {
+                "type": "string"
+            },
+            "created": {
+                "type": "string"
+            },
+            "description": {
+                "type": "string"
+            },
+            "name": {
+                "type": "string"
+            },
+            "numberOfAssetsSupported": {
+                "type": "number"
+            },
+            "smartVaultStrategyId": {
+                "type": "string"
+            }
+        },
+        "required": [
+            "configJsonSchema",
+            "created",
+            "description",
+            "name",
+            "numberOfAssetsSupported",
+            "smartVaultStrategyId"
+        ],
+        "type": "object"
+    },
+    "type": "array"
+}
+

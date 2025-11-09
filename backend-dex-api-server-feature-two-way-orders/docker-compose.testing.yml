@@ -1,0 +1,51 @@
+version: '3.7'
+services:
+  dex-api_testing:
+    image: node:18.12.1
+    container_name: dex-api_testing
+    networks:
+      - testing
+    environment:
+      SEED_TARGET: $SEED_TARGET
+      DEVELOPMENT_TESTING: true
+      DISABLE_REDIS: true
+    working_dir: /usr/src/app
+    restart: always
+    depends_on:
+      postgres_database_testing:
+        condition: service_healthy
+    ports:
+      - '8013:3000' # Expose Node API server on 8012
+      - '9239:9229' # Debugging related
+      - '5556:5555' # Expose server running Prisma studio
+    volumes:
+      - .:/usr/src/app
+    env_file:
+      - .testing.env
+      - .local.env
+    command: sh -i development-testing.sh
+
+  postgres_database_testing:
+    image: postgres:14.1-alpine
+    restart: always
+    user: postgres
+    container_name: postgres_database_testing
+    networks:
+      - testing
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'password'
+      POSTGRES_DB: 'dex-server-db_testing'
+      POSTGRES_PORT: 5432
+    ports:
+      - '5433:5432'
+    expose:
+      - '5433'
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  testing:

@@ -1,0 +1,48 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "allOf": [
+        {
+            "properties": {
+                "count": {
+                    "type": "number"
+                },
+                "cursor": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        {
+            "properties": {
+                "filterSearch": {
+                    "type": "string"
+                },
+                "sortBy": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        {
+            "properties": {
+                "count": {
+                    "type": "number"
+                },
+                "cursor": {
+                    "type": "string"
+                },
+                "search": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "sort": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    ]
+}
+

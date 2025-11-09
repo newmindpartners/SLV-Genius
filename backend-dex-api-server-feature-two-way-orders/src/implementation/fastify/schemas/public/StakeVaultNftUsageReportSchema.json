@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "properties": {
+        "secondsRemaining": {
+            "type": [
+                "null",
+                "number"
+            ]
+        }
+    },
+    "required": [
+        "secondsRemaining"
+    ],
+    "type": "object"
+}
+

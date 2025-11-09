@@ -1,0 +1,103 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "properties": {
+        "rewardsClaimLovelaceServiceFee": {
+            "type": "string"
+        },
+        "rewardsGroups": {
+            "items": {
+                "properties": {
+                    "assets": {
+                        "items": {
+                            "properties": {
+                                "asset": {
+                                    "allOf": [
+                                        {
+                                            "properties": {
+                                                "assetId": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "assetId"
+                                            ],
+                                            "type": "object"
+                                        },
+                                        {
+                                            "properties": {
+                                                "assetId": {
+                                                    "type": "string"
+                                                },
+                                                "assetName": {
+                                                    "type": "string"
+                                                },
+                                                "decimalPrecision": {
+                                                    "type": "number"
+                                                },
+                                                "enabled": {
+                                                    "type": "boolean"
+                                                },
+                                                "iconUrl": {
+                                                    "type": "string"
+                                                },
+                                                "longName": {
+                                                    "type": "string"
+                                                },
+                                                "policyId": {
+                                                    "type": "string"
+                                                },
+                                                "referenceAssetAmount": {
+                                                    "type": "string"
+                                                },
+                                                "referenceAssetId": {
+                                                    "type": "string"
+                                                },
+                                                "shortName": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "assetId",
+                                                "assetName",
+                                                "decimalPrecision",
+                                                "iconUrl",
+                                                "longName",
+                                                "policyId",
+                                                "shortName"
+                                            ],
+                                            "type": "object"
+                                        }
+                                    ]
+                                },
+                                "assetAmount": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "asset",
+                                "assetAmount"
+                            ],
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "groupName": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "assets",
+                    "groupName"
+                ],
+                "type": "object"
+            },
+            "type": "array"
+        }
+    },
+    "required": [
+        "rewardsClaimLovelaceServiceFee",
+        "rewardsGroups"
+    ],
+    "type": "object"
+}
+

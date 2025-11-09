@@ -1,0 +1,306 @@
+{
+  "context": {
+    "block_hash": "8295697dbfd1c20e4e1cdc7abf11a128517f5ba9c28be84e46fc4966fde98ad9",
+    "block_number": 1403864,
+    "slot": 39629629,
+    "timestamp": 1695312829,
+    "tx_idx": 0,
+    "tx_hash": "8fcb07272895768b14b643f79909ffa5d10853d9f592c157101cb5300de6c630",
+    "input_idx": null,
+    "output_idx": null,
+    "output_address": null,
+    "certificate_idx": null
+  },
+  "transaction": {
+    "hash": "8fcb07272895768b14b643f79909ffa5d10853d9f592c157101cb5300de6c630",
+    "fee": 296763,
+    "ttl": null,
+    "validity_interval_start": null,
+    "network_id": null,
+    "input_count": 2,
+    "collateral_input_count": 1,
+    "has_collateral_output": true,
+    "output_count": 5,
+    "mint_count": 0,
+    "total_output": 870732521,
+    "metadata": null,
+    "inputs": [
+      {
+        "tx_id": "ce53f4072b5a806b5f02f9bb1defe799711f8d5353d9879de476ddcf6ea910cd",
+        "index": 0
+      },
+      {
+        "tx_id": "ce53f4072b5a806b5f02f9bb1defe799711f8d5353d9879de476ddcf6ea910cd",
+        "index": 3
+      }
+    ],
+    "outputs": [
+      {
+        "address": "addr_test1wp37y2jluu8w4x40fzttre85qhtzp45vxunu7kvd909r2fcvrd84q",
+        "amount": 8800000,
+        "assets": [
+          {
+            "policy": "398c8b16963f058438a406f2cce680406fa555f6d5877911309dad4d",
+            "asset": "69726f6e",
+            "asset_ascii": "iron",
+            "amount": 50
+          },
+          {
+            "policy": "693ac7bbfc1aeb7475aea732e237ef74f9d846af278890d2e17d00db",
+            "asset": "2671b62ab07cb5b642bc0ebf79c588f98b29318448ec3534c6375ea86819e844",
+            "asset_ascii": "",
+            "amount": 1
+          }
+        ],
+        "datum_hash": "45d2ea58af4cf63736c676017366d5117aef6ccf6e758f8196c58513cf1ea391",
+        "inline_datum": null
+      },
+      {
+        "address": "addr_test1qqe9k9zmswzx9h9vaaf49shun82t8nr52h0ptpgumzxjjqm6wlgjpw0gdtwuwwydhwcm6g6sfy9h69q2kg6q8p3jxdxsrrxrdm",
+        "amount": 2000000,
+        "assets": [
+          {
+            "policy": "adb98b7dcd99dabbf7cb46214ed7c2c69f0d6dbf2e43a3c7f9a5cf2c",
+            "asset": "676f6c64",
+            "asset_ascii": "gold",
+            "amount": 8
+          }
+        ],
+        "datum_hash": "000a2fdf587a6c9a4032e11122b9c705234380a99b6d4eb0f40ff7bd5bdc397b",
+        "inline_datum": null
+      },
+      {
+        "address": "addr_test1qqe9k9zmswzx9h9vaaf49shun82t8nr52h0ptpgumzxjjqm6wlgjpw0gdtwuwwydhwcm6g6sfy9h69q2kg6q8p3jxdxsrrxrdm",
+        "amount": 698569864,
+        "assets": [
+          {
+            "policy": "398c8b16963f058438a406f2cce680406fa555f6d5877911309dad4d",
+            "asset": "69726f6e",
+            "asset_ascii": "iron",
+            "amount": 40
+          }
+        ],
+        "datum_hash": null,
+        "inline_datum": null
+      },
+      {
+        "address": "addr_test1qqe9k9zmswzx9h9vaaf49shun82t8nr52h0ptpgumzxjjqm6wlgjpw0gdtwuwwydhwcm6g6sfy9h69q2kg6q8p3jxdxsrrxrdm",
+        "amount": 159659420,
+        "assets": [
+          {
+            "policy": "adb98b7dcd99dabbf7cb46214ed7c2c69f0d6dbf2e43a3c7f9a5cf2c",
+            "asset": "676f6c64",
+            "asset_ascii": "gold",
+            "amount": 349
+          }
+        ],
+        "datum_hash": null,
+        "inline_datum": null
+      },
+      {
+        "address": "addr_test1qqe9k9zmswzx9h9vaaf49shun82t8nr52h0ptpgumzxjjqm6wlgjpw0gdtwuwwydhwcm6g6sfy9h69q2kg6q8p3jxdxsrrxrdm",
+        "amount": 1703237,
+        "assets": [],
+        "datum_hash": null,
+        "inline_datum": null
+      }
+    ],
+    "collateral_inputs": [
+      {
+        "tx_id": "7e0311835b96692ad13bc687f4549caface8232d3d435fd8991551c3f3d9ccb0",
+        "index": 0
+      }
+    ],
+    "collateral_output": {
+      "address": "addr_test1qqe9k9zmswzx9h9vaaf49shun82t8nr52h0ptpgumzxjjqm6wlgjpw0gdtwuwwydhwcm6g6sfy9h69q2kg6q8p3jxdxsrrxrdm",
+      "amount": 4554855,
+      "assets": [],
+      "datum_hash": null,
+      "inline_datum": null
+    },
+    "mint": null,
+    "vkey_witnesses": [
+      {
+        "vkey_hex": "de319390644514fabba291974bfe688085eac95a0160461f583b7417a30176ca",
+        "signature_hex": "de543f0e49a4585eb9a7468e5836246f2fea9419affa8b3b8e2d09b9afdc77d1374ec484689411cf3e0260637606dcf8f0ed6e2d1009c5cbeaa943ab01510709"
+      }
+    ],
+    "native_witnesses": [],
+    "plutus_witnesses": [],
+    "plutus_redeemers": [
+      {
+        "purpose": "spend",
+        "ex_units_mem": 746814,
+        "ex_units_steps": 292233269,
+        "input_idx": 0,
+        "plutus_data": {"constructor": 1, "fields": [{"int": 40}]}
+      }
+    ],
+    "plutus_data": [
+      {
+        "datum_hash": "000a2fdf587a6c9a4032e11122b9c705234380a99b6d4eb0f40ff7bd5bdc397b",
+        "plutus_data": {
+          "constructor": 0,
+          "fields": [
+            {
+              "constructor": 0,
+              "fields": [
+                {
+                  "bytes": "ce53f4072b5a806b5f02f9bb1defe799711f8d5353d9879de476ddcf6ea910cd"
+                }
+              ]
+            },
+            {"int": 0}
+          ]
+        }
+      },
+      {
+        "datum_hash": "45d2ea58af4cf63736c676017366d5117aef6ccf6e758f8196c58513cf1ea391",
+        "plutus_data": {
+          "constructor": 0,
+          "fields": [
+            {
+              "bytes": "325b145b838462dcacef5352c2fc99d4b3cc7455de15851cd88d2903"
+            },
+            {
+              "constructor": 0,
+              "fields": [
+                {
+                  "constructor": 0,
+                  "fields": [
+                    {
+                      "bytes": "325b145b838462dcacef5352c2fc99d4b3cc7455de15851cd88d2903"
+                    }
+                  ]
+                },
+                {
+                  "constructor": 0,
+                  "fields": [
+                    {
+                      "constructor": 0,
+                      "fields": [
+                        {
+                          "constructor": 0,
+                          "fields": [
+                            {
+                              "bytes": "7a77d120b9e86addc7388dbbb1bd2350490b7d140ab234038632334d"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "constructor": 0,
+              "fields": [
+                {
+                  "bytes": "398c8b16963f058438a406f2cce680406fa555f6d5877911309dad4d"
+                },
+                {"bytes": "69726f6e"}
+              ]
+            },
+            {"int": 110},
+            {"int": 50},
+            {
+              "constructor": 0,
+              "fields": [
+                {
+                  "bytes": "adb98b7dcd99dabbf7cb46214ed7c2c69f0d6dbf2e43a3c7f9a5cf2c"
+                },
+                {"bytes": "676f6c64"}
+              ]
+            },
+            {"constructor": 0, "fields": [{"int": 1}, {"int": 5}]},
+            {"int": 20},
+            {
+              "bytes": "2671b62ab07cb5b642bc0ebf79c588f98b29318448ec3534c6375ea86819e844"
+            },
+            {"constructor": 1, "fields": []},
+            {"constructor": 1, "fields": []},
+            {"int": 200000},
+            {"int": 2}
+          ]
+        }
+      },
+      {
+        "datum_hash": "e73a2dc5853f8294c026dc5c7c374d4eb6f0f241b2d33cc5e3f01d40c9beac5c",
+        "plutus_data": {
+          "constructor": 0,
+          "fields": [
+            {
+              "bytes": "325b145b838462dcacef5352c2fc99d4b3cc7455de15851cd88d2903"
+            },
+            {
+              "constructor": 0,
+              "fields": [
+                {
+                  "constructor": 0,
+                  "fields": [
+                    {
+                      "bytes": "325b145b838462dcacef5352c2fc99d4b3cc7455de15851cd88d2903"
+                    }
+                  ]
+                },
+                {
+                  "constructor": 0,
+                  "fields": [
+                    {
+                      "constructor": 0,
+                      "fields": [
+                        {
+                          "constructor": 0,
+                          "fields": [
+                            {
+                              "bytes": "7a77d120b9e86addc7388dbbb1bd2350490b7d140ab234038632334d"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "constructor": 0,
+              "fields": [
+                {
+                  "bytes": "398c8b16963f058438a406f2cce680406fa555f6d5877911309dad4d"
+                },
+                {"bytes": "69726f6e"}
+              ]
+            },
+            {"int": 110},
+            {"int": 90},
+            {
+              "constructor": 0,
+              "fields": [
+                {
+                  "bytes": "adb98b7dcd99dabbf7cb46214ed7c2c69f0d6dbf2e43a3c7f9a5cf2c"
+                },
+                {"bytes": "676f6c64"}
+              ]
+            },
+            {"constructor": 0, "fields": [{"int": 1}, {"int": 5}]},
+            {"int": 20},
+            {
+              "bytes": "2671b62ab07cb5b642bc0ebf79c588f98b29318448ec3534c6375ea86819e844"
+            },
+            {"constructor": 1, "fields": []},
+            {"constructor": 1, "fields": []},
+            {"int": 200000},
+            {"int": 1}
+          ]
+        }
+      }
+    ],
+    "withdrawals": null,
+    "size": 1582
+  },
+  "fingerprint": null,
+  "variant": "Transaction",
+  "timestamp": 1695312829000
+}

@@ -1,0 +1,638 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "allOf": [
+        {
+            "properties": {
+                "orderSaleProjectId": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "orderSaleProjectId"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "baseAssetAmount": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "baseAssetAmount"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "quoteAssetAmount": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "quoteAssetAmount"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "baseAsset": {
+                    "allOf": [
+                        {
+                            "properties": {
+                                "assetId": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "assetId"
+                            ],
+                            "type": "object"
+                        },
+                        {
+                            "properties": {
+                                "assetId": {
+                                    "type": "string"
+                                },
+                                "assetName": {
+                                    "type": "string"
+                                },
+                                "decimalPrecision": {
+                                    "type": "number"
+                                },
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "iconUrl": {
+                                    "type": "string"
+                                },
+                                "longName": {
+                                    "type": "string"
+                                },
+                                "policyId": {
+                                    "type": "string"
+                                },
+                                "referenceAssetAmount": {
+                                    "type": "string"
+                                },
+                                "referenceAssetId": {
+                                    "type": "string"
+                                },
+                                "shortName": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "assetId",
+                                "assetName",
+                                "decimalPrecision",
+                                "iconUrl",
+                                "longName",
+                                "policyId",
+                                "shortName"
+                            ],
+                            "type": "object"
+                        }
+                    ]
+                },
+                "baseAssetAllocationAmount": {
+                    "type": "string"
+                },
+                "baseAssetTotalTokenSupplyAmount": {
+                    "type": "string"
+                },
+                "distributionDate": {
+                    "type": "string"
+                },
+                "distributionIsCompleted": {
+                    "type": "boolean"
+                },
+                "distributionMethod": {
+                    "type": "string"
+                },
+                "imageLogoUrl": {
+                    "type": "string"
+                },
+                "longDescription": {
+                    "type": "string"
+                },
+                "mediaDiscordUrl": {
+                    "type": "string"
+                },
+                "mediaEmail": {
+                    "type": "string"
+                },
+                "mediaMediumUrl": {
+                    "type": "string"
+                },
+                "mediaTelegramUrl": {
+                    "type": "string"
+                },
+                "mediaTwitterUrl": {
+                    "type": "string"
+                },
+                "mediaYoutubeUrl": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "pitchDeckUrl": {
+                    "type": "string"
+                },
+                "privacyPolicyUrl": {
+                    "type": "string"
+                },
+                "quoteAsset": {
+                    "allOf": [
+                        {
+                            "properties": {
+                                "assetId": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "assetId"
+                            ],
+                            "type": "object"
+                        },
+                        {
+                            "properties": {
+                                "assetId": {
+                                    "type": "string"
+                                },
+                                "assetName": {
+                                    "type": "string"
+                                },
+                                "decimalPrecision": {
+                                    "type": "number"
+                                },
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "iconUrl": {
+                                    "type": "string"
+                                },
+                                "longName": {
+                                    "type": "string"
+                                },
+                                "policyId": {
+                                    "type": "string"
+                                },
+                                "referenceAssetAmount": {
+                                    "type": "string"
+                                },
+                                "referenceAssetId": {
+                                    "type": "string"
+                                },
+                                "shortName": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "assetId",
+                                "assetName",
+                                "decimalPrecision",
+                                "iconUrl",
+                                "longName",
+                                "policyId",
+                                "shortName"
+                            ],
+                            "type": "object"
+                        }
+                    ]
+                },
+                "roundsBaseAssetAllocationAmount": {
+                    "type": "string"
+                },
+                "roundsQuoteAssetRoundsRaisedAmount": {
+                    "type": "string"
+                },
+                "shortDescription": {
+                    "type": "string"
+                },
+                "status": {
+                    "enum": [
+                        "ACTIVE",
+                        "CLOSED",
+                        "UPCOMING"
+                    ],
+                    "type": "string"
+                },
+                "vestingPeriod": {
+                    "type": "string"
+                },
+                "websiteUrl": {
+                    "type": "string"
+                },
+                "whitePaperUrl": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "baseAsset",
+                "baseAssetAllocationAmount",
+                "distributionDate",
+                "distributionIsCompleted",
+                "distributionMethod",
+                "imageLogoUrl",
+                "longDescription",
+                "name",
+                "quoteAsset",
+                "roundsBaseAssetAllocationAmount",
+                "roundsQuoteAssetRoundsRaisedAmount",
+                "shortDescription",
+                "status",
+                "vestingPeriod"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "fundingMethod": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "isBuyForbidden": {
+                    "type": "boolean"
+                },
+                "isBuyForbiddenReason": {
+                    "type": "string"
+                },
+                "keyFeatures": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "properties": {
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "title": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "description",
+                                    "title"
+                                ],
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "lockupPeriod": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "mediaYoutubeUrl": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "projectReportUrl": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "roadmapItems": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "properties": {
+                                    "isChecked": {
+                                        "type": "boolean"
+                                    },
+                                    "roadmapObjectives": {
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "title": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "isChecked",
+                                    "roadmapObjectives",
+                                    "title"
+                                ],
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "rounds": {
+                    "items": {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "roundId": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "roundId"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "baseAssetId": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "baseAssetId"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "baseAssetAmount": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "baseAssetAmount"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "quoteAssetId": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "quoteAssetId"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "quoteAssetAmount": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "quoteAssetAmount"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "baseAssetAllocationAmount": {
+                                        "type": "string"
+                                    },
+                                    "baseAssetSubmittedAmount": {
+                                        "type": "string"
+                                    },
+                                    "eligibilityDescription": {
+                                        "type": [
+                                            "null",
+                                            "string"
+                                        ]
+                                    },
+                                    "endDate": {
+                                        "type": "string"
+                                    },
+                                    "isClosed": {
+                                        "type": "boolean"
+                                    },
+                                    "isSoldOut": {
+                                        "type": "boolean"
+                                    },
+                                    "number": {
+                                        "type": "number"
+                                    },
+                                    "orderBaseAssetMaxAllocation": {
+                                        "type": "string"
+                                    },
+                                    "orderBaseAssetMinAllocation": {
+                                        "type": "string"
+                                    },
+                                    "orderSaleProjectId": {
+                                        "type": "string"
+                                    },
+                                    "quoteAssetRaisedAmount": {
+                                        "type": "string"
+                                    },
+                                    "shortName": {
+                                        "type": "string"
+                                    },
+                                    "startDate": {
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "enum": [
+                                            "ACTIVE",
+                                            "CLOSED",
+                                            "UPCOMING"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "baseAssetAllocationAmount",
+                                    "baseAssetSubmittedAmount",
+                                    "endDate",
+                                    "isClosed",
+                                    "isSoldOut",
+                                    "number",
+                                    "orderBaseAssetMaxAllocation",
+                                    "orderBaseAssetMinAllocation",
+                                    "orderSaleProjectId",
+                                    "quoteAssetRaisedAmount",
+                                    "shortName",
+                                    "startDate",
+                                    "status"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "status": {
+                    "enum": [
+                        "ACTIVE",
+                        "CLOSED",
+                        "UPCOMING"
+                    ],
+                    "type": "string"
+                },
+                "statusRoundId": {
+                    "type": "string"
+                },
+                "teamMembers": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "allOf": [
+                                    {
+                                        "properties": {
+                                            "teamMemberId": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "teamMemberId"
+                                        ],
+                                        "type": "object"
+                                    },
+                                    {
+                                        "properties": {
+                                            "facebookUrl": {
+                                                "type": "string"
+                                            },
+                                            "imageUrl": {
+                                                "type": "string"
+                                            },
+                                            "linkedinUrl": {
+                                                "type": "string"
+                                            },
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "role": {
+                                                "type": "string"
+                                            },
+                                            "telegramUrl": {
+                                                "type": "string"
+                                            },
+                                            "twitterUrl": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "imageUrl",
+                                            "name",
+                                            "role"
+                                        ],
+                                        "type": "object"
+                                    }
+                                ]
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "technologies": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "properties": {
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "iconUrl": {
+                                        "type": "string"
+                                    },
+                                    "subtitle": {
+                                        "type": "string"
+                                    },
+                                    "title": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "description",
+                                    "iconUrl",
+                                    "subtitle",
+                                    "title"
+                                ],
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "tokenUtility": {
+                    "anyOf": [
+                        {
+                            "properties": {
+                                "description": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                },
+                                "items": {
+                                    "anyOf": [
+                                        {
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "type": "array"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ]
+                                }
+                            },
+                            "type": "object"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "tokenomics": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "properties": {
+                                    "amount": {
+                                        "type": "number"
+                                    },
+                                    "title": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "amount",
+                                    "title"
+                                ],
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "isBuyForbidden",
+                "rounds",
+                "status",
+                "statusRoundId"
+            ],
+            "type": "object"
+        }
+    ]
+}
+

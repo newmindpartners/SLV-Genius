@@ -1,0 +1,14 @@
+{
+  "$schema": "http://draft-07.schema.json",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "assetId": {"type": "string"},
+      "amount": {"type": "string", "pattern": "^[0-9]+$"}
+    },
+    "required": ["assetId", "amount"]
+  }
+}
+
+

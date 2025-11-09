@@ -1,0 +1,32 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "properties": {
+        "status": {
+            "enum": [
+                "SUBMITTED"
+            ],
+            "type": "string"
+        },
+        "transaction": {
+            "properties": {
+                "transactionId": {
+                    "type": "string"
+                },
+                "transactionUrl": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "transactionId",
+                "transactionUrl"
+            ],
+            "type": "object"
+        }
+    },
+    "required": [
+        "status",
+        "transaction"
+    ],
+    "type": "object"
+}
+

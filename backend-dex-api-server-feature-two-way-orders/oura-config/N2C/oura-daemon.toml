@@ -1,0 +1,29 @@
+[source]
+type = "N2C"
+address = ["Unix", "/ipc/node.socket"]
+magic = "preprod"
+min_depth = 1
+
+[source.mapper]
+include_transaction_details = true
+include_block_end_events = true
+
+[[filters]]
+type = "Selection"
+
+[filters.check]
+predicate = "variant_in"
+argument = ["Transaction","RollBack", "BlockEnd",]
+
+[sink]
+type = "Webhook"
+url = "http://dex-api:3000/cardano/event-oura"
+authorization = "basic dXNlcjpwYXNz"
+timeout = 30000
+error_policy = "Continue"
+
+[sink.retry_policy]
+max_retries = 1000
+backoff_unit =  5000
+backoff_factor = 2
+max_backoff = 100000

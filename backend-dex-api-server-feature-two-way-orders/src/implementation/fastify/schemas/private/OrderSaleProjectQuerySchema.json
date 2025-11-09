@@ -1,0 +1,42 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "allOf": [
+        {
+            "properties": {
+                "count": {
+                    "type": "number"
+                },
+                "cursor": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        {
+            "properties": {
+                "status": {
+                    "description": "Filter results by exact project's status values comma separated",
+                    "items": {
+                        "enum": [
+                            "ACTIVE",
+                            "CLOSED",
+                            "UPCOMING"
+                        ],
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        {
+            "properties": {
+                "filterByWalletStakeKeyHash": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    ]
+}
+

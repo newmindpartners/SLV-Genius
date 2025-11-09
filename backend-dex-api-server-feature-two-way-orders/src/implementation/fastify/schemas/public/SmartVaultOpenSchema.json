@@ -1,0 +1,85 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "allOf": [
+        {
+            "properties": {
+                "walletAddress": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "walletAddress"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "collateralUtxo": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "walletRewardAddresses": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "walletUnusedAddresses": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "walletUsedAddresses": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "collateralUtxo",
+                "walletUnusedAddresses",
+                "walletUsedAddresses"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "depositAssets": {
+                    "items": {
+                        "properties": {
+                            "assetAmount": {
+                                "type": "string"
+                            },
+                            "assetId": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "assetAmount",
+                            "assetId"
+                        ],
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "smartVaultStrategyConfigJson": {
+                    "type": "string"
+                },
+                "smartVaultStrategyId": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "depositAssets",
+                "smartVaultStrategyConfigJson",
+                "smartVaultStrategyId"
+            ],
+            "type": "object"
+        }
+    ]
+}
+

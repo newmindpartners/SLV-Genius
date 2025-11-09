@@ -1,0 +1,38 @@
+export const teamMembers = [
+  {
+    teamMemberId: '4571701d-0e2d-458f-bf97-7ee0ef72f1d5',
+    name: 'Laurent Bellandi',
+    role: 'Chief Executive Officer & Co-Founder',
+    imageUrl: '/cdn/Laurent-Bellandi.jpg',
+    linkedinUrl: 'https://www.linkedin.com/in/laurent-bellandi/',
+    facebookUrl: '',
+    twitterUrl: '',
+  },
+  {
+    teamMemberId: '0ad48248-1d1b-4643-ae31-b28c0c038a4e',
+    name: 'Dr. Lars Brünjes',
+    role: 'Chief Technology Officer & Co-Founder',
+    imageUrl: '/cdn/Lars-Brunjes.jpg',
+    linkedinUrl: 'https://www.linkedin.com/in/dr-lars-br%C3%BCnjes-1640993b/',
+    facebookUrl: '',
+    twitterUrl: 'https://twitter.com/LarsBrunjes',
+  },
+  {
+    teamMemberId: '367aa7ba-ae57-46f6-89bf-38a81cc2e247',
+    name: 'Dr. Sothy Kol-Men',
+    role: 'Chief Regulatory Officer & Co-Founder',
+    imageUrl: '/cdn/sothy.jpeg',
+    linkedinUrl: 'https://www.linkedin.com/in/dr-kol-men/',
+    facebookUrl: '',
+    twitterUrl: '',
+  },
+  {
+    teamMemberId: '5db95457-1b8e-4735-a92b-0b57d83eeb42',
+    name: 'Marvin Bertin',
+    role: 'Chief Scientific Officer & Co-Founder',
+    imageUrl: '/cdn/Marvin-Bertin.jpg',
+    linkedinUrl: 'https://www.linkedin.com/in/marvinbertin/',
+    facebookUrl: '',
+    twitterUrl: 'https://twitter.com/MarvinDefi',
+  },
+];

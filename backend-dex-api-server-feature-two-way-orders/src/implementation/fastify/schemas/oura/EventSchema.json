@@ -1,0 +1,698 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "anyOf": [
+        {
+            "allOf": [
+                {
+                    "properties": {
+                        "block_end": {
+                            "properties": {
+                                "body_size": {
+                                    "type": "number"
+                                },
+                                "cbor_hex": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                },
+                                "epoch": {
+                                    "type": "number"
+                                },
+                                "epoch_slot": {
+                                    "type": "number"
+                                },
+                                "era": {
+                                    "type": "string"
+                                },
+                                "hash": {
+                                    "type": "string"
+                                },
+                                "issuer_vkey": {
+                                    "type": "string"
+                                },
+                                "number": {
+                                    "type": "number"
+                                },
+                                "previous_hash": {
+                                    "type": "string"
+                                },
+                                "slot": {
+                                    "type": "number"
+                                },
+                                "transactions": {
+                                    "anyOf": [
+                                        {
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "type": "array"
+                                        },
+                                        {
+                                            "items": {
+                                                "properties": {
+                                                    "fee": {
+                                                        "type": "number"
+                                                    },
+                                                    "hash": {
+                                                        "type": "string"
+                                                    },
+                                                    "inputs": {
+                                                        "items": {
+                                                            "properties": {
+                                                                "index": {
+                                                                    "type": "number"
+                                                                },
+                                                                "tx_id": {
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "required": [
+                                                                "index",
+                                                                "tx_id"
+                                                            ],
+                                                            "type": "object"
+                                                        },
+                                                        "type": "array"
+                                                    },
+                                                    "mint": {
+                                                        "anyOf": [
+                                                            {
+                                                                "items": {
+                                                                    "properties": {
+                                                                        "asset": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "policy": {
+                                                                            "type": "string"
+                                                                        },
+                                                                        "quantity": {
+                                                                            "type": "number"
+                                                                        }
+                                                                    },
+                                                                    "required": [
+                                                                        "asset",
+                                                                        "policy",
+                                                                        "quantity"
+                                                                    ],
+                                                                    "type": "object"
+                                                                },
+                                                                "type": "array"
+                                                            },
+                                                            {
+                                                                "type": "null"
+                                                            }
+                                                        ]
+                                                    },
+                                                    "outputs": {
+                                                        "items": {
+                                                            "properties": {
+                                                                "address": {
+                                                                    "type": "string"
+                                                                },
+                                                                "amount": {
+                                                                    "type": "number"
+                                                                },
+                                                                "assets": {
+                                                                    "items": {
+                                                                        "properties": {
+                                                                            "amount": {
+                                                                                "type": "number"
+                                                                            },
+                                                                            "asset": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "asset_ascii": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "policy": {
+                                                                                "type": "string"
+                                                                            }
+                                                                        },
+                                                                        "required": [
+                                                                            "amount",
+                                                                            "asset",
+                                                                            "policy"
+                                                                        ],
+                                                                        "type": "object"
+                                                                    },
+                                                                    "type": "array"
+                                                                },
+                                                                "datum_hash": {
+                                                                    "type": [
+                                                                        "null",
+                                                                        "string"
+                                                                    ]
+                                                                },
+                                                                "inline_datum": {}
+                                                            },
+                                                            "required": [
+                                                                "address",
+                                                                "amount",
+                                                                "assets",
+                                                                "datum_hash",
+                                                                "inline_datum"
+                                                            ],
+                                                            "type": "object"
+                                                        },
+                                                        "type": "array"
+                                                    },
+                                                    "plutus_data": {
+                                                        "anyOf": [
+                                                            {
+                                                                "items": {
+                                                                    "properties": {
+                                                                        "datum_hash": {
+                                                                            "type": [
+                                                                                "null",
+                                                                                "string"
+                                                                            ]
+                                                                        },
+                                                                        "plutus_data": {}
+                                                                    },
+                                                                    "required": [
+                                                                        "datum_hash",
+                                                                        "plutus_data"
+                                                                    ],
+                                                                    "type": "object"
+                                                                },
+                                                                "type": "array"
+                                                            },
+                                                            {
+                                                                "type": "null"
+                                                            }
+                                                        ]
+                                                    },
+                                                    "plutus_redeemers": {
+                                                        "anyOf": [
+                                                            {
+                                                                "items": {
+                                                                    "properties": {
+                                                                        "ex_units_mem": {
+                                                                            "type": "number"
+                                                                        },
+                                                                        "ex_units_steps": {
+                                                                            "type": "number"
+                                                                        },
+                                                                        "input_idx": {
+                                                                            "type": "number"
+                                                                        },
+                                                                        "plutus_data": {},
+                                                                        "purpose": {
+                                                                            "type": "string"
+                                                                        }
+                                                                    },
+                                                                    "required": [
+                                                                        "ex_units_mem",
+                                                                        "ex_units_steps",
+                                                                        "input_idx",
+                                                                        "plutus_data",
+                                                                        "purpose"
+                                                                    ],
+                                                                    "type": "object"
+                                                                },
+                                                                "type": "array"
+                                                            },
+                                                            {
+                                                                "type": "null"
+                                                            }
+                                                        ]
+                                                    }
+                                                },
+                                                "required": [
+                                                    "fee",
+                                                    "hash",
+                                                    "inputs",
+                                                    "mint",
+                                                    "outputs",
+                                                    "plutus_data",
+                                                    "plutus_redeemers"
+                                                ],
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ]
+                                },
+                                "tx_count": {
+                                    "type": "number"
+                                },
+                                "vrf_vkey": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "body_size",
+                                "cbor_hex",
+                                "epoch",
+                                "epoch_slot",
+                                "era",
+                                "hash",
+                                "issuer_vkey",
+                                "number",
+                                "previous_hash",
+                                "slot",
+                                "transactions",
+                                "tx_count",
+                                "vrf_vkey"
+                            ],
+                            "type": "object"
+                        },
+                        "variant": {
+                            "enum": [
+                                "BlockEnd"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "block_end",
+                        "variant"
+                    ],
+                    "type": "object"
+                },
+                {
+                    "properties": {
+                        "context": {
+                            "properties": {
+                                "block_hash": {
+                                    "type": "string"
+                                },
+                                "block_number": {
+                                    "type": "number"
+                                },
+                                "certificate_idx": {
+                                    "type": [
+                                        "null",
+                                        "number"
+                                    ]
+                                },
+                                "input_idx": {
+                                    "type": [
+                                        "null",
+                                        "number"
+                                    ]
+                                },
+                                "output_address": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                },
+                                "output_idx": {
+                                    "type": [
+                                        "null",
+                                        "number"
+                                    ]
+                                },
+                                "slot": {
+                                    "type": "number"
+                                },
+                                "timestamp": {
+                                    "type": "number"
+                                },
+                                "tx_hash": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                },
+                                "tx_idx": {
+                                    "type": [
+                                        "null",
+                                        "number"
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "block_hash",
+                                "block_number",
+                                "certificate_idx",
+                                "input_idx",
+                                "output_address",
+                                "output_idx",
+                                "slot",
+                                "timestamp",
+                                "tx_hash",
+                                "tx_idx"
+                            ],
+                            "type": "object"
+                        },
+                        "variant": {
+                            "enum": [
+                                "BlockEnd",
+                                "RollBack",
+                                "Transaction"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "context",
+                        "variant"
+                    ],
+                    "type": "object"
+                }
+            ]
+        },
+        {
+            "allOf": [
+                {
+                    "properties": {
+                        "roll_back": {
+                            "properties": {
+                                "block_hash": {
+                                    "type": "string"
+                                },
+                                "block_slot": {
+                                    "type": "number"
+                                }
+                            },
+                            "required": [
+                                "block_hash",
+                                "block_slot"
+                            ],
+                            "type": "object"
+                        },
+                        "variant": {
+                            "enum": [
+                                "RollBack"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "roll_back",
+                        "variant"
+                    ],
+                    "type": "object"
+                },
+                {
+                    "properties": {
+                        "context": {
+                            "properties": {
+                                "block_hash": {
+                                    "type": "string"
+                                },
+                                "block_number": {
+                                    "type": "number"
+                                },
+                                "certificate_idx": {
+                                    "type": [
+                                        "null",
+                                        "number"
+                                    ]
+                                },
+                                "input_idx": {
+                                    "type": [
+                                        "null",
+                                        "number"
+                                    ]
+                                },
+                                "output_address": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                },
+                                "output_idx": {
+                                    "type": [
+                                        "null",
+                                        "number"
+                                    ]
+                                },
+                                "slot": {
+                                    "type": "number"
+                                },
+                                "timestamp": {
+                                    "type": "number"
+                                },
+                                "tx_hash": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                },
+                                "tx_idx": {
+                                    "type": [
+                                        "null",
+                                        "number"
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "block_hash",
+                                "block_number",
+                                "certificate_idx",
+                                "input_idx",
+                                "output_address",
+                                "output_idx",
+                                "slot",
+                                "timestamp",
+                                "tx_hash",
+                                "tx_idx"
+                            ],
+                            "type": "object"
+                        },
+                        "variant": {
+                            "enum": [
+                                "BlockEnd",
+                                "RollBack",
+                                "Transaction"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "context",
+                        "variant"
+                    ],
+                    "type": "object"
+                }
+            ]
+        },
+        {
+            "allOf": [
+                {
+                    "properties": {
+                        "transaction": {
+                            "properties": {
+                                "fee": {
+                                    "type": "number"
+                                },
+                                "hash": {
+                                    "type": "string"
+                                },
+                                "inputs": {
+                                    "items": {
+                                        "properties": {
+                                            "index": {
+                                                "type": "number"
+                                            },
+                                            "tx_id": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "index",
+                                            "tx_id"
+                                        ],
+                                        "type": "object"
+                                    },
+                                    "type": "array"
+                                },
+                                "mint": {
+                                    "anyOf": [
+                                        {
+                                            "items": {
+                                                "properties": {
+                                                    "asset": {
+                                                        "type": "string"
+                                                    },
+                                                    "policy": {
+                                                        "type": "string"
+                                                    },
+                                                    "quantity": {
+                                                        "type": "number"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "asset",
+                                                    "policy",
+                                                    "quantity"
+                                                ],
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }
+                                    ]
+                                },
+                                "outputs": {
+                                    "items": {
+                                        "properties": {
+                                            "address": {
+                                                "type": "string"
+                                            },
+                                            "amount": {
+                                                "type": "number"
+                                            },
+                                            "assets": {
+                                                "items": {
+                                                    "properties": {
+                                                        "amount": {
+                                                            "type": "number"
+                                                        },
+                                                        "asset": {
+                                                            "type": "string"
+                                                        },
+                                                        "asset_ascii": {
+                                                            "type": "string"
+                                                        },
+                                                        "policy": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "amount",
+                                                        "asset",
+                                                        "asset_ascii",
+                                                        "policy"
+                                                    ],
+                                                    "type": "object"
+                                                },
+                                                "type": "array"
+                                            },
+                                            "datum_hash": {
+                                                "type": [
+                                                    "null",
+                                                    "string"
+                                                ]
+                                            },
+                                            "inline_datum": {}
+                                        },
+                                        "required": [
+                                            "address",
+                                            "amount",
+                                            "assets",
+                                            "datum_hash",
+                                            "inline_datum"
+                                        ],
+                                        "type": "object"
+                                    },
+                                    "type": "array"
+                                }
+                            },
+                            "required": [
+                                "fee",
+                                "hash",
+                                "inputs",
+                                "mint",
+                                "outputs"
+                            ],
+                            "type": "object"
+                        },
+                        "variant": {
+                            "enum": [
+                                "Transaction"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "transaction",
+                        "variant"
+                    ],
+                    "type": "object"
+                },
+                {
+                    "properties": {
+                        "context": {
+                            "properties": {
+                                "block_hash": {
+                                    "type": "string"
+                                },
+                                "block_number": {
+                                    "type": "number"
+                                },
+                                "certificate_idx": {
+                                    "type": [
+                                        "null",
+                                        "number"
+                                    ]
+                                },
+                                "input_idx": {
+                                    "type": [
+                                        "null",
+                                        "number"
+                                    ]
+                                },
+                                "output_address": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                },
+                                "output_idx": {
+                                    "type": [
+                                        "null",
+                                        "number"
+                                    ]
+                                },
+                                "slot": {
+                                    "type": "number"
+                                },
+                                "timestamp": {
+                                    "type": "number"
+                                },
+                                "tx_hash": {
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ]
+                                },
+                                "tx_idx": {
+                                    "type": [
+                                        "null",
+                                        "number"
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "block_hash",
+                                "block_number",
+                                "certificate_idx",
+                                "input_idx",
+                                "output_address",
+                                "output_idx",
+                                "slot",
+                                "timestamp",
+                                "tx_hash",
+                                "tx_idx"
+                            ],
+                            "type": "object"
+                        },
+                        "variant": {
+                            "enum": [
+                                "BlockEnd",
+                                "RollBack",
+                                "Transaction"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "context",
+                        "variant"
+                    ],
+                    "type": "object"
+                }
+            ]
+        }
+    ]
+}

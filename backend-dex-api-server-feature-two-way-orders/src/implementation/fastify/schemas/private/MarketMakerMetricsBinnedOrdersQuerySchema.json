@@ -1,0 +1,45 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "allOf": [
+        {
+            "description": "Ideally we would source this from the open-api schema generated types\nbut they are listed as an array rather than an object so that is not feasible.\nWe would need to update `oazapfts` and use `--argumentStyle` to be able to do this.",
+            "properties": {
+                "binInterval": {
+                    "enum": [
+                        "15m",
+                        "1d",
+                        "1h",
+                        "1w",
+                        "30m",
+                        "4h"
+                    ],
+                    "type": "string"
+                },
+                "endTime": {
+                    "type": "string"
+                },
+                "startTime": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "binInterval",
+                "endTime",
+                "startTime"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "filterByWalletStakeKeyHash": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "filterByWalletStakeKeyHash"
+            ],
+            "type": "object"
+        }
+    ]
+}
+

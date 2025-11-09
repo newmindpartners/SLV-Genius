@@ -1,0 +1,3 @@
+[submodule "specification/public/open-api"]
+	path = specification/public/open-api
+	url = git@github.com:geniusyield/dex-api-schema.git

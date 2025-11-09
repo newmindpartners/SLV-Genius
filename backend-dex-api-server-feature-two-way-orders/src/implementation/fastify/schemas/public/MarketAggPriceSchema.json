@@ -1,0 +1,152 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "properties": {
+        "assetPair": {
+            "properties": {
+                "baseAsset": {
+                    "allOf": [
+                        {
+                            "properties": {
+                                "assetId": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "assetId"
+                            ],
+                            "type": "object"
+                        },
+                        {
+                            "properties": {
+                                "assetId": {
+                                    "type": "string"
+                                },
+                                "assetName": {
+                                    "type": "string"
+                                },
+                                "decimalPrecision": {
+                                    "type": "number"
+                                },
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "iconUrl": {
+                                    "type": "string"
+                                },
+                                "longName": {
+                                    "type": "string"
+                                },
+                                "policyId": {
+                                    "type": "string"
+                                },
+                                "referenceAssetAmount": {
+                                    "type": "string"
+                                },
+                                "referenceAssetId": {
+                                    "type": "string"
+                                },
+                                "shortName": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "assetId",
+                                "assetName",
+                                "decimalPrecision",
+                                "iconUrl",
+                                "longName",
+                                "policyId",
+                                "shortName"
+                            ],
+                            "type": "object"
+                        }
+                    ]
+                },
+                "quoteAsset": {
+                    "allOf": [
+                        {
+                            "properties": {
+                                "assetId": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "assetId"
+                            ],
+                            "type": "object"
+                        },
+                        {
+                            "properties": {
+                                "assetId": {
+                                    "type": "string"
+                                },
+                                "assetName": {
+                                    "type": "string"
+                                },
+                                "decimalPrecision": {
+                                    "type": "number"
+                                },
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "iconUrl": {
+                                    "type": "string"
+                                },
+                                "longName": {
+                                    "type": "string"
+                                },
+                                "policyId": {
+                                    "type": "string"
+                                },
+                                "referenceAssetAmount": {
+                                    "type": "string"
+                                },
+                                "referenceAssetId": {
+                                    "type": "string"
+                                },
+                                "shortName": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "assetId",
+                                "assetName",
+                                "decimalPrecision",
+                                "iconUrl",
+                                "longName",
+                                "policyId",
+                                "shortName"
+                            ],
+                            "type": "object"
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "baseAsset",
+                "quoteAsset"
+            ],
+            "type": "object"
+        },
+        "data": {
+            "items": {
+                "properties": {
+                    "price": {
+                        "type": "number"
+                    },
+                    "timestamp": {
+                        "type": "number"
+                    }
+                },
+                "type": "object"
+            },
+            "type": "array"
+        }
+    },
+    "required": [
+        "assetPair",
+        "data"
+    ],
+    "type": "object"
+}
+

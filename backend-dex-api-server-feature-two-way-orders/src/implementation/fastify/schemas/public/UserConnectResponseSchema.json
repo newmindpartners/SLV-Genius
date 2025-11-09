@@ -1,0 +1,50 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "allOf": [
+        {
+            "properties": {
+                "isKycRequired": {
+                    "type": "boolean"
+                },
+                "isKycRequiredReason": {
+                    "type": "string"
+                },
+                "kycAccessToken": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "isKycRequired"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "isTermsAcceptanceRequired": {
+                    "type": "boolean"
+                },
+                "termsUrl": {
+                    "type": "string"
+                },
+                "termsVersion": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "isTermsAcceptanceRequired",
+                "termsUrl",
+                "termsVersion"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "userId": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    ]
+}
+

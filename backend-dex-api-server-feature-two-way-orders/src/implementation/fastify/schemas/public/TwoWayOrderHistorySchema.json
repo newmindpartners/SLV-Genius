@@ -1,0 +1,26 @@
+{
+  "$schema": "http://draft-07.schema.json",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "twoWayOrderActivityId": {"type": "string"},
+      "activityType": {"type": "string", "enum": ["OPEN", "FILL", "CANCEL"]},
+      "txHash": {"type": ["string", "null"]},
+      "slot": {"type": ["number", "null"]},
+      "message": {"type": ["string", "null"]},
+      "created": {"type": "string", "format": "date-time"},
+      "fromFilled": {"type": ["string", "null"], "pattern": "^[0-9]+$"},
+      "toFilled": {"type": ["string", "null"], "pattern": "^[0-9]+$"},
+      "userReceiveTo": {"type": ["string", "null"], "pattern": "^[0-9]+$"},
+      "userPayFrom": {"type": ["string", "null"], "pattern": "^[0-9]+$"},
+      "userReceiveToNet": {"type": ["string", "null"], "pattern": "^[0-9]+$"},
+      "userPayFromNet": {"type": ["string", "null"], "pattern": "^[0-9]+$"},
+      "feeTo": {"type": ["string", "null"], "pattern": "^[0-9]+$"},
+      "feeFrom": {"type": ["string", "null"], "pattern": "^[0-9]+$"},
+      "pnlToAbs": {"type": ["string", "null"], "pattern": "^[0-9]+$"},
+      "pnlToPct": {"type": ["number", "null"]}
+    },
+    "required": ["twoWayOrderActivityId", "activityType", "created"]
+  }
+}

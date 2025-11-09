@@ -1,0 +1,238 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "properties": {
+        "count": {
+            "type": "number"
+        },
+        "next": {
+            "type": "string"
+        },
+        "previous": {
+            "type": "string"
+        },
+        "results": {
+            "items": {
+                "allOf": [
+                    {
+                        "properties": {
+                            "stakeVaultId": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "stakeVaultId"
+                        ],
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "activeRewardState": {
+                                "properties": {
+                                    "lockDuration": {
+                                        "enum": [
+                                            "FLEX",
+                                            "MONTHS_1",
+                                            "MONTHS_12",
+                                            "MONTHS_3",
+                                            "MONTHS_6",
+                                            "MONTHS_9"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "nftsApy": {
+                                        "type": "string"
+                                    },
+                                    "revenueAmplifier": {
+                                        "type": "string"
+                                    },
+                                    "totalApy": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "lockDuration"
+                                ],
+                                "type": "object"
+                            },
+                            "inactiveRewardState": {
+                                "properties": {
+                                    "lockDuration": {
+                                        "enum": [
+                                            "FLEX",
+                                            "MONTHS_1",
+                                            "MONTHS_12",
+                                            "MONTHS_3",
+                                            "MONTHS_6",
+                                            "MONTHS_9"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "nftsApy": {
+                                        "type": "string"
+                                    },
+                                    "revenueAmplifier": {
+                                        "type": "string"
+                                    },
+                                    "totalApy": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "lockDuration"
+                                ],
+                                "type": "object"
+                            },
+                            "isUnstaked": {
+                                "type": "boolean"
+                            },
+                            "isUnstakingEnabled": {
+                                "type": "boolean"
+                            },
+                            "stakedAsset": {
+                                "allOf": [
+                                    {
+                                        "properties": {
+                                            "assetId": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "assetId"
+                                        ],
+                                        "type": "object"
+                                    },
+                                    {
+                                        "properties": {
+                                            "assetId": {
+                                                "type": "string"
+                                            },
+                                            "assetName": {
+                                                "type": "string"
+                                            },
+                                            "decimalPrecision": {
+                                                "type": "number"
+                                            },
+                                            "enabled": {
+                                                "type": "boolean"
+                                            },
+                                            "iconUrl": {
+                                                "type": "string"
+                                            },
+                                            "longName": {
+                                                "type": "string"
+                                            },
+                                            "policyId": {
+                                                "type": "string"
+                                            },
+                                            "referenceAssetAmount": {
+                                                "type": "string"
+                                            },
+                                            "referenceAssetId": {
+                                                "type": "string"
+                                            },
+                                            "shortName": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "assetId",
+                                            "assetName",
+                                            "decimalPrecision",
+                                            "iconUrl",
+                                            "longName",
+                                            "policyId",
+                                            "shortName"
+                                        ],
+                                        "type": "object"
+                                    }
+                                ]
+                            },
+                            "stakedAssetAmount": {
+                                "type": "string"
+                            },
+                            "stakedStakingNfts": {
+                                "items": {
+                                    "allOf": [
+                                        {
+                                            "properties": {
+                                                "subType": {
+                                                    "type": "string"
+                                                },
+                                                "type": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "subType",
+                                                "type"
+                                            ],
+                                            "type": "object"
+                                        },
+                                        {
+                                            "properties": {
+                                                "apyBoost": {
+                                                    "type": "string"
+                                                },
+                                                "assetName": {
+                                                    "type": "string"
+                                                },
+                                                "imageUrl": {
+                                                    "type": "string"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "policyId": {
+                                                    "type": "string"
+                                                },
+                                                "stackableWith": {
+                                                    "items": {
+                                                        "type": "string"
+                                                    },
+                                                    "type": "array"
+                                                },
+                                                "vestingBoost": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "assetName",
+                                                "imageUrl",
+                                                "name",
+                                                "policyId",
+                                                "stackableWith"
+                                            ],
+                                            "type": "object"
+                                        }
+                                    ]
+                                },
+                                "type": "array"
+                            },
+                            "transactionUrl": {
+                                "type": "string"
+                            },
+                            "unlocksAt": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "isUnstaked",
+                            "isUnstakingEnabled",
+                            "stakedAsset",
+                            "stakedAssetAmount",
+                            "stakedStakingNfts"
+                        ],
+                        "type": "object"
+                    }
+                ]
+            },
+            "type": "array"
+        }
+    },
+    "required": [
+        "count",
+        "results"
+    ],
+    "type": "object"
+}
+

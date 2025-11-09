@@ -1,0 +1,138 @@
+services:
+  dex-api:
+    image: node:18.12.1
+    container_name: dex-api
+    environment:
+      SEED_TARGET: $SEED_TARGET
+    working_dir: /usr/src/app
+    restart: always
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres_database:
+        condition: service_healthy
+    ports:
+      - '8012:3000' # Expose Node API server on 8012
+      - '9238:9229' # Debugging related
+      - '5555:5555' # Expose server running Prisma studio
+    volumes:
+      - .:/usr/src/app
+      - ./temp:/usr/src/app/temp
+    expose:
+      - '9238'
+    env_file:
+      - .local.env
+    command: sh -i development.sh
+
+  postgres_database:
+    image: postgres:14.1-alpine
+    restart: always
+    user: postgres
+    container_name: postgres_database
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'password'
+      POSTGRES_DB: 'dex-server-db'
+      POSTGRES_PORT: 5432
+    ports:
+      - '5432:5432'
+    expose:
+      - '5432'
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  queue-processor:
+    image: node:18.12.1
+    profiles: ['queue-processor']
+    container_name: queue-processor
+    working_dir: /usr/src/app
+    restart: always
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres_database:
+        condition: service_healthy
+    volumes:
+      - .:/usr/src/app
+      - ./temp:/usr/src/app/temp
+    env_file:
+      - .local.env
+    environment:
+      - TRANSACTION_SERVER_TIMEOUT=300000
+      - PRISMA_TRANSACTION_TIMEOUT=300000
+    command: yarn queue-transaction:dev
+
+  bullboard:
+    image: europe-west6-docker.pkg.dev/genius-yield-dev/dex/bullboard:latest
+    profiles: ['tools']
+    restart: always
+    ports:
+      - 3000:3000
+    depends_on:
+      redis:
+        condition: service_healthy
+    environment:
+      REDIS_HOST: redis
+      REDIS_PASSWORD: eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+      USER_LOGIN: bull
+      USER_PASSWORD: board
+
+  redis:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    volumes:
+      - redis:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', '--raw', 'incr', 'ping']
+
+  oura-n2n:
+    platform: linux/x86_64
+    image: ghcr.io/txpipe/oura:v1.9.4
+    profiles: ['oura-n2n']
+    volumes:
+      - ./oura-config/N2N/oura-daemon.toml:/etc/oura/daemon.toml
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '200k'
+        max-file: '10'
+    command: daemon
+
+  oura-n2c:
+    image: ghcr.io/txpipe/oura:v1.9.4
+    profiles: ['oura-n2c']
+    volumes:
+      - ./oura-config/N2C/oura-daemon.toml:/etc/oura/daemon.toml
+      - node-ipc:/ipc
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '200k'
+        max-file: '10'
+    command: daemon
+
+  cardano-node:
+    image: inputoutput/cardano-node:latest
+    profiles: ['oura-n2c']
+    environment:
+      - NETWORK=preprod
+    volumes:
+      - node-db:/data/db
+      - node-ipc:/ipc
+    logging:
+      driver: none
+
+volumes:
+  dbdata: null
+  dbdata-pgadmin: null
+  redis: null
+  node-db: null
+  node-ipc: null

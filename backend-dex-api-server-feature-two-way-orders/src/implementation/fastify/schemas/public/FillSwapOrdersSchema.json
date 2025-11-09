@@ -1,0 +1,104 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "allOf": [
+        {
+            "properties": {
+                "walletAddress": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "walletAddress"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "collateralUtxo": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "walletRewardAddresses": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "walletUnusedAddresses": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "walletUsedAddresses": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "collateralUtxo",
+                "walletUnusedAddresses",
+                "walletUsedAddresses"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "fillSwapOrders": {
+                    "items": {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "toAssetAmount": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "toAssetAmount"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "orderReference": {
+                                        "properties": {
+                                            "orderId": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "orderId"
+                                        ],
+                                        "type": "object"
+                                    }
+                                },
+                                "required": [
+                                    "orderReference"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "orderFillType": {
+                    "enum": [
+                        "FILL_BEST_AVAILABLE",
+                        "FILL_DIRECT"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "fillSwapOrders",
+                "orderFillType"
+            ],
+            "type": "object"
+        }
+    ]
+}
+

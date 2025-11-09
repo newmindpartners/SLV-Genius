@@ -1,0 +1,400 @@
+{
+  "context": {
+    "block_hash": "5d5ccef51e7fc50b9788052c84bddea3549ef1cc93414703e93141264f0a104e",
+    "block_number": 1473672,
+    "slot": 41340766,
+    "timestamp": 1697023966,
+    "tx_idx": 0,
+    "tx_hash": "7210529728822954fb173cf71eda0bc5b9542a972fb91db3100b7c447794da02",
+    "input_idx": null,
+    "output_idx": null,
+    "output_address": null,
+    "certificate_idx": null
+  },
+  "transaction": {
+    "hash": "7210529728822954fb173cf71eda0bc5b9542a972fb91db3100b7c447794da02",
+    "fee": 357087,
+    "ttl": null,
+    "validity_interval_start": null,
+    "network_id": null,
+    "input_count": 3,
+    "collateral_input_count": 1,
+    "has_collateral_output": true,
+    "output_count": 7,
+    "mint_count": 1,
+    "total_output": 50035017,
+    "metadata": null,
+    "inputs": [
+      {
+        "tx_id": "362b6ea3b46a60b17dba571db671f7763c9afe10e27b01e6125918abad4818a6",
+        "index": 0
+      },
+      {
+        "tx_id": "b85a6872b94260b5e1d0eb226aaa9cc9ddb6a16783b34cb51435b35825378fa5",
+        "index": 3
+      },
+      {
+        "tx_id": "eb556bd560772ec3f419a573525da07b315d1247a356953ef14bc91d56716f56",
+        "index": 3
+      }
+    ],
+    "outputs": [
+      {
+        "address": "addr_test1qz90w58304r8sns8xz2xmsu9rsnvahtrcrk5yfv0atr7z09p6jfk0sqrqzw88lxlrkg4hgtfwzyv0hx7ja5rwnx8xg3sq7dq9w",
+        "amount": 22000000,
+        "assets": [],
+        "datum_hash": "65d8ebac3479986f3420078902dd296010e6b912c9dd307d35d807d743f304a8",
+        "inline_datum": null
+      },
+      {
+        "address": "addr_test1wqtcz4vq80zxr3dskdcuw7wtfq0vwssd7rrpnnvcvrjhp5sx7leew",
+        "amount": 19980306,
+        "assets": [
+          {
+            "policy": "54debe4542aedd8f1af00828608fde9384bd8bbc729160149ad9880e",
+            "asset": "cae3671760d41a7964e7c2089646fc424146c49ec6f2fa1837b61bf0dc6fb369",
+            "asset_ascii": "",
+            "amount": 1
+          }
+        ],
+        "datum_hash": "7154c9b3d22e74cea032c0d4023107a77c5eac16e3c3b8f500fdf92fd00e2854",
+        "inline_datum": null
+      },
+      {
+        "address": "addr_test1qrrkqpw5kp7saa7pzxks3yh2vyv7epvs8aass60nyljj7ll84c4yc5z093j75sq525rrjqsnmvefa8y7nl0xpazt24fsahzn86",
+        "amount": 2000000,
+        "assets": [
+          {
+            "policy": "8cafc9b387c9f6519cacdce48a8448c062670c810d8da4b232e56313",
+            "asset": "6d4e5458",
+            "asset_ascii": "mNTX",
+            "amount": 40
+          }
+        ],
+        "datum_hash": "80c77d81926b8433dbaaaf6c8607d87662e87924155475a312a92757fe348eba",
+        "inline_datum": null
+      },
+      {
+        "address": "addr_test1vr4clwvx854uhymhaecqnh42cx0dff7rznt8p23yx9jcxyg7lnkmp",
+        "amount": 1777466,
+        "assets": [],
+        "datum_hash": null,
+        "inline_datum": null
+      },
+      {
+        "address": "addr_test1vr4clwvx854uhymhaecqnh42cx0dff7rznt8p23yx9jcxyg7lnkmp",
+        "amount": 1693026,
+        "assets": [],
+        "datum_hash": null,
+        "inline_datum": null
+      },
+      {
+        "address": "addr_test1vr4clwvx854uhymhaecqnh42cx0dff7rznt8p23yx9jcxyg7lnkmp",
+        "amount": 941306,
+        "assets": [],
+        "datum_hash": null,
+        "inline_datum": null
+      },
+      {
+        "address": "addr_test1vr4clwvx854uhymhaecqnh42cx0dff7rznt8p23yx9jcxyg7lnkmp",
+        "amount": 1642913,
+        "assets": [],
+        "datum_hash": null,
+        "inline_datum": null
+      }
+    ],
+    "collateral_inputs": [
+      {
+        "tx_id": "7cc7b044d26981d3fc73ae72994f289d99ba113ceefb5b83f4d7643bfb12682a",
+        "index": 0
+      }
+    ],
+    "collateral_output": {
+      "address": "addr_test1vr4clwvx854uhymhaecqnh42cx0dff7rznt8p23yx9jcxyg7lnkmp",
+      "amount": 19464369,
+      "assets": [],
+      "datum_hash": null,
+      "inline_datum": null
+    },
+    "mint": [
+      {
+        "policy": "54debe4542aedd8f1af00828608fde9384bd8bbc729160149ad9880e",
+        "asset": "683470574ccfede8d4203af5dadf387355dd53bb655a5540ff27516180f2d9da",
+        "quantity": -1
+      }
+    ],
+    "vkey_witnesses": [
+      {
+        "vkey_hex": "9b6839cc12bdc6926f4aa8f5c92955f388198d0bcc5e594d09a811ea608d6765",
+        "signature_hex": "8e82b388d76cf65d6a3d124b5557557e5b67a8e24348f824b0f887e0a69f060a69af4a64feb884b7bded6ce5c09afd0d0fe00079d3ed51b158a07400d32d1f06"
+      }
+    ],
+    "native_witnesses": [],
+    "plutus_witnesses": [],
+    "plutus_redeemers": [
+      {
+        "purpose": "spend",
+        "ex_units_mem": 778360,
+        "ex_units_steps": 322543744,
+        "input_idx": 0,
+        "plutus_data": {"constructor": 1, "fields": [{"int": 24419694}]}
+      },
+      {
+        "purpose": "spend",
+        "ex_units_mem": 448418,
+        "ex_units_steps": 184043101,
+        "input_idx": 2,
+        "plutus_data": {"constructor": 2, "fields": []}
+      },
+      {
+        "purpose": "mint",
+        "ex_units_mem": 44491,
+        "ex_units_steps": 15878679,
+        "input_idx": 0,
+        "plutus_data": {"constructor": 1, "fields": []}
+      }
+    ],
+    "plutus_data": [
+      {
+        "datum_hash": "65d8ebac3479986f3420078902dd296010e6b912c9dd307d35d807d743f304a8",
+        "plutus_data": {
+          "constructor": 0,
+          "fields": [
+            {
+              "constructor": 0,
+              "fields": [
+                {
+                  "bytes": "eb556bd560772ec3f419a573525da07b315d1247a356953ef14bc91d56716f56"
+                }
+              ]
+            },
+            {"int": 3}
+          ]
+        }
+      },
+      {
+        "datum_hash": "6bd3180bddd08926924a52c9aca8c19a3cb0b1adb06e587a2fb24374f971b340",
+        "plutus_data": {
+          "constructor": 0,
+          "fields": [
+            {
+              "bytes": "8af750f17d46784e0730946dc3851c26cedd63c0ed42258feac7e13c"
+            },
+            {
+              "constructor": 0,
+              "fields": [
+                {
+                  "constructor": 0,
+                  "fields": [
+                    {
+                      "bytes": "8af750f17d46784e0730946dc3851c26cedd63c0ed42258feac7e13c"
+                    }
+                  ]
+                },
+                {
+                  "constructor": 0,
+                  "fields": [
+                    {
+                      "constructor": 0,
+                      "fields": [
+                        {
+                          "constructor": 0,
+                          "fields": [
+                            {
+                              "bytes": "a1d49367c003009c73fcdf1d915ba1697088c7dcde9768374cc73223"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "constructor": 0,
+              "fields": [
+                {
+                  "bytes": "8cafc9b387c9f6519cacdce48a8448c062670c810d8da4b232e56313"
+                },
+                {"bytes": "6d4e5458"}
+              ]
+            },
+            {"int": 100},
+            {"int": 40},
+            {"constructor": 0, "fields": [{"bytes": ""}, {"bytes": ""}]},
+            {"constructor": 0, "fields": [{"int": 500000}, {"int": 1}]},
+            {"int": 50},
+            {
+              "bytes": "683470574ccfede8d4203af5dadf387355dd53bb655a5540ff27516180f2d9da"
+            },
+            {"constructor": 1, "fields": []},
+            {"constructor": 1, "fields": []},
+            {"int": 200000},
+            {"int": 1}
+          ]
+        }
+      },
+      {
+        "datum_hash": "7154c9b3d22e74cea032c0d4023107a77c5eac16e3c3b8f500fdf92fd00e2854",
+        "plutus_data": {
+          "constructor": 0,
+          "fields": [
+            {
+              "bytes": "c76005d4b07d0ef7c111ad0892ea6119ec85903f7b0869f327e52f7f"
+            },
+            {
+              "constructor": 0,
+              "fields": [
+                {
+                  "constructor": 0,
+                  "fields": [
+                    {
+                      "bytes": "c76005d4b07d0ef7c111ad0892ea6119ec85903f7b0869f327e52f7f"
+                    }
+                  ]
+                },
+                {
+                  "constructor": 0,
+                  "fields": [
+                    {
+                      "constructor": 0,
+                      "fields": [
+                        {
+                          "constructor": 0,
+                          "fields": [
+                            {
+                              "bytes": "e7ae2a4c504f2c65ea40145506390213db329e9c9e9fde60f44b5553"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {"constructor": 0, "fields": [{"bytes": ""}, {"bytes": ""}]},
+            {"int": 40000000},
+            {"int": 15580306},
+            {
+              "constructor": 0,
+              "fields": [
+                {
+                  "bytes": "8cafc9b387c9f6519cacdce48a8448c062670c810d8da4b232e56313"
+                },
+                {"bytes": "6d4e5458"}
+              ]
+            },
+            {
+              "constructor": 0,
+              "fields": [
+                {"bignint": "020D7CA70F2ACAC183C35213827DC2FFFFFFFFFFFF"},
+                {"bignint": "015e531a0a1c872bad2ce16256fe81ffffffffffff"}
+              ]
+            },
+            {"int": 14252000},
+            {
+              "bytes": "cae3671760d41a7964e7c2089646fc424146c49ec6f2fa1837b61bf0dc6fb369"
+            },
+            {"constructor": 1, "fields": []},
+            {"constructor": 1, "fields": []},
+            {"int": 200000},
+            {"int": 1}
+          ]
+        }
+      },
+      {
+        "datum_hash": "80c77d81926b8433dbaaaf6c8607d87662e87924155475a312a92757fe348eba",
+        "plutus_data": {
+          "constructor": 0,
+          "fields": [
+            {
+              "constructor": 0,
+              "fields": [
+                {
+                  "bytes": "362b6ea3b46a60b17dba571db671f7763c9afe10e27b01e6125918abad4818a6"
+                }
+              ]
+            },
+            {"int": 0}
+          ]
+        }
+      },
+      {
+        "datum_hash": "e2dcdcebc49bc87dffb46da79abbd3fbddb27a8381ed8981f840b55d1f721b6f",
+        "plutus_data": {
+          "constructor": 0,
+          "fields": [
+            {
+              "bytes": "c76005d4b07d0ef7c111ad0892ea6119ec85903f7b0869f327e52f7f"
+            },
+            {
+              "constructor": 0,
+              "fields": [
+                {
+                  "constructor": 0,
+                  "fields": [
+                    {
+                      "bytes": "c76005d4b07d0ef7c111ad0892ea6119ec85903f7b0869f327e52f7f"
+                    }
+                  ]
+                },
+                {
+                  "constructor": 0,
+                  "fields": [
+                    {
+                      "constructor": 0,
+                      "fields": [
+                        {
+                          "constructor": 0,
+                          "fields": [
+                            {
+                              "bytes": "e7ae2a4c504f2c65ea40145506390213db329e9c9e9fde60f44b5553"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {"constructor": 0, "fields": [{"bytes": ""}, {"bytes": ""}]},
+            {"int": 40000000},
+            {"int": 40000000},
+            {
+              "constructor": 0,
+              "fields": [
+                {
+                  "bytes": "8cafc9b387c9f6519cacdce48a8448c062670c810d8da4b232e56313"
+                },
+                {"bytes": "6d4e5458"}
+              ]
+            },
+            {
+              "constructor": 0,
+              "fields": [
+                {"int": 30216175126565},
+                {"bignint": "015e531a0a1c872bad2ce16256fe81ffffffffffff"}
+              ]
+            },
+            {"int": 14252000},
+            {
+              "bytes": "cae3671760d41a7964e7c2089646fc424146c49ec6f2fa1837b61bf0dc6fb369"
+            },
+            {"constructor": 1, "fields": []},
+            {"constructor": 1, "fields": []},
+            {"int": 200000},
+            {"int": 0}
+          ]
+        }
+      }
+    ],
+    "withdrawals": null,
+    "size": 1888
+  },
+  "fingerprint": null,
+  "variant": "Transaction",
+  "timestamp": 1697023966000
+}

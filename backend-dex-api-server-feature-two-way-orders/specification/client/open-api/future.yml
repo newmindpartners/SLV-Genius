@@ -1,0 +1,495 @@
+openapi: 3.0.1
+info:
+  version: 1.0.0
+  title: Genius Yield Two-Way Orders API
+servers:
+  - url: https://api.geniusyield.co
+paths:
+  /two-way-order:
+    get:
+      operationId: getTwoWayOrders
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TwoWayOrderList'
+  /two-way-order/{orderId}:
+    parameters:
+      - name: orderId
+        in: path
+        required: true
+        description: ID of the two-way order
+        schema:
+          type: string
+    get:
+      operationId: getTwoWayOrderById
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TwoWayOrderResult'
+  /two-way-order/place:
+    post:
+      operationId: placeTwoWayOrder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TwoWayOrderPlace'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnsignedTransaction'
+  /two-way-order/fill:
+    post:
+      operationId: fillTwoWayOrder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TwoWayOrderFill'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnsignedTransaction'
+  /two-way-order/cancel:
+    post:
+      operationId: cancelTwoWayOrder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TwoWayOrderCancel'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnsignedTransaction'
+  /two-way-order/{orderId}/history:
+    parameters:
+      - name: orderId
+        in: path
+        required: true
+        description: ID of the two-way order
+        schema:
+          type: string
+    get:
+      operationId: getTwoWayOrderHistory
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TwoWayOrderHistory'
+  /slv/balance:
+    get:
+      operationId: getSlvBalance
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlvBalance'
+components:
+  schemas:
+    TwoWayOrderList:
+      type: array
+      items:
+        $ref: '#/components/schemas/TwoWayOrderItem'
+    TwoWayOrderItem:
+      type: object
+      required:
+        - twoWayOrderId
+        - toAssetId
+        - fromAssetId
+        - toAssetAmount
+        - fromAssetAmount
+        - toAssetAmountTotalRemaining
+        - fromAssetAmountTotalRemaining
+        - toAssetAmountTotalFilled
+        - fromAssetAmountTotalFilled
+        - price
+        - partialFillCount
+        - orderDate
+        - created
+        - updated
+        - toAssetNetReceived
+        - pnlToAbs
+        - pnlToPct
+      properties:
+        twoWayOrderId:
+          type: string
+        toAssetId:
+          type: string
+        fromAssetId:
+          type: string
+        toAssetAmount:
+          type: string
+          pattern: '^[0-9]+$'
+        fromAssetAmount:
+          type: string
+          pattern: '^[0-9]+$'
+        toAssetAmountTotalRemaining:
+          type: string
+          pattern: '^[0-9]+$'
+        fromAssetAmountTotalRemaining:
+          type: string
+          pattern: '^[0-9]+$'
+        toAssetAmountTotalFilled:
+          type: string
+          pattern: '^[0-9]+$'
+        fromAssetAmountTotalFilled:
+          type: string
+          pattern: '^[0-9]+$'
+        price:
+          type: number
+        priceNumerator:
+          type: string
+          nullable: true
+        priceDenominator:
+          type: string
+          nullable: true
+        orderStatus:
+          type: string
+          nullable: true
+        mintAssetId:
+          type: string
+          nullable: true
+        depositAmount:
+          type: string
+          pattern: '^[0-9]+$'
+          nullable: true
+        makerLovelaceFlatFeeAmount:
+          type: string
+          pattern: '^[0-9]+$'
+          nullable: true
+        makerFromAssetFeePercent:
+          type: number
+          nullable: true
+        makerFromAssetFeeAmount:
+          type: string
+          pattern: '^[0-9]+$'
+          nullable: true
+        takerLovelaceFlatFeeAmount:
+          type: string
+          pattern: '^[0-9]+$'
+          nullable: true
+        takerFromAssetFeePercent:
+          type: number
+          nullable: true
+        takerFromAssetFeeAmount:
+          type: string
+          pattern: '^[0-9]+$'
+          nullable: true
+        utxoReferenceTransactionHash:
+          type: string
+          nullable: true
+        utxoReferenceIndex:
+          type: number
+          nullable: true
+        effectiveFromDate:
+          type: string
+          format: date-time
+          nullable: true
+        effectiveUntilDate:
+          type: string
+          format: date-time
+          nullable: true
+        partialFillCount:
+          type: number
+        orderDate:
+          type: string
+          format: date-time
+        transactionDateOpen:
+          type: string
+          format: date-time
+          nullable: true
+        transactionDateFill:
+          type: string
+          format: date-time
+          nullable: true
+        transactionDateCancel:
+          type: string
+          format: date-time
+          nullable: true
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+        toAssetNetReceived:
+          type: string
+          pattern: '^[0-9]+$'
+        pnlToAbs:
+          type: string
+          pattern: '^[0-9]+$'
+        pnlToPct:
+          type: number
+    TwoWayOrderPlace:
+      type: object
+      required:
+        - walletAddress
+        - collateralUtxo
+        - walletUnusedAddresses
+        - walletUsedAddresses
+        - toAssetId
+        - toAssetName
+        - toAssetPolicyId
+        - toAssetAmount
+        - fromAssetId
+        - fromAssetName
+        - fromAssetPolicyId
+        - fromAssetAmount
+      properties:
+        walletAddress:
+          type: string
+        collateralUtxo:
+          type: array
+          items:
+            type: string
+        walletRewardAddresses:
+          type: array
+          items:
+            type: string
+        walletUnusedAddresses:
+          type: array
+          items:
+            type: string
+        walletUsedAddresses:
+          type: array
+          items:
+            type: string
+        toAssetId:
+          type: string
+        toAssetName:
+          type: string
+        toAssetPolicyId:
+          type: string
+        toAssetAmount:
+          type: string
+        fromAssetId:
+          type: string
+        fromAssetName:
+          type: string
+        fromAssetPolicyId:
+          type: string
+        fromAssetAmount:
+          type: string
+        effectiveFromDate:
+          type: string
+        effectiveUntilDate:
+          type: string
+    TwoWayOrderFill:
+      type: object
+      required:
+        - walletAddress
+        - collateralUtxo
+        - walletUnusedAddresses
+        - walletUsedAddresses
+        - utxoReference
+      properties:
+        walletAddress:
+          type: string
+        collateralUtxo:
+          type: array
+          items:
+            type: string
+        walletUnusedAddresses:
+          type: array
+          items:
+            type: string
+        walletUsedAddresses:
+          type: array
+          items:
+            type: string
+        utxoReference:
+          type: string
+    TwoWayOrderCancel:
+      type: object
+      required:
+        - walletAddress
+        - collateralUtxo
+        - walletUnusedAddresses
+        - walletUsedAddresses
+        - utxoReference
+      properties:
+        walletAddress:
+          type: string
+        collateralUtxo:
+          type: array
+          items:
+            type: string
+        walletUnusedAddresses:
+          type: array
+          items:
+            type: string
+        walletUsedAddresses:
+          type: array
+          items:
+            type: string
+        utxoReference:
+          type: string
+    TwoWayOrderResult:
+      type: object
+      required:
+        - twoWayOrderId
+        - toAssetId
+        - fromAssetId
+        - toAssetAmount
+        - fromAssetAmount
+        - toAssetAmountTotalRemaining
+        - fromAssetAmountTotalRemaining
+        - toAssetAmountTotalFilled
+        - fromAssetAmountTotalFilled
+        - price
+        - partialFillCount
+        - created
+        - updated
+        - toAssetNetReceived
+        - pnlToAbs
+        - pnlToPct
+      properties:
+        twoWayOrderId:
+          type: string
+        toAssetId:
+          type: string
+        fromAssetId:
+          type: string
+        toAssetAmount:
+          type: string
+          pattern: '^[0-9]+$'
+        fromAssetAmount:
+          type: string
+          pattern: '^[0-9]+$'
+        toAssetAmountTotalRemaining:
+          type: string
+          pattern: '^[0-9]+$'
+        fromAssetAmountTotalRemaining:
+          type: string
+          pattern: '^[0-9]+$'
+        toAssetAmountTotalFilled:
+          type: string
+          pattern: '^[0-9]+$'
+        fromAssetAmountTotalFilled:
+          type: string
+          pattern: '^[0-9]+$'
+        price:
+          type: number
+        orderStatus:
+          type: string
+          nullable: true
+        partialFillCount:
+          type: number
+        created:
+          type: string
+          format: date-time
+        updated:
+          type: string
+          format: date-time
+        toAssetNetReceived:
+          type: string
+          pattern: '^[0-9]+$'
+        pnlToAbs:
+          type: string
+          pattern: '^[0-9]+$'
+        pnlToPct:
+          type: number
+    UnsignedTransaction:
+      type: object
+      required:
+        - transactionPayload
+        - transactionId
+      properties:
+        transactionPayload:
+          type: string
+        transactionId:
+          type: string
+    TwoWayOrderHistory:
+      type: array
+      items:
+        $ref: '#/components/schemas/TwoWayOrderHistoryItem'
+    TwoWayOrderHistoryItem:
+      type: object
+      required:
+        - twoWayOrderActivityId
+        - activityType
+        - created
+      properties:
+        twoWayOrderActivityId:
+          type: string
+        activityType:
+          type: string
+          enum: [OPEN, FILL, CANCEL]
+        txHash:
+          type: string
+          nullable: true
+        slot:
+          type: number
+          nullable: true
+        message:
+          type: string
+          nullable: true
+        created:
+          type: string
+          format: date-time
+        fromFilled:
+          type: string
+          pattern: '^[0-9]+$'
+          nullable: true
+        toFilled:
+          type: string
+          pattern: '^[0-9]+$'
+          nullable: true
+        userReceiveTo:
+          type: string
+          pattern: '^[0-9]+$'
+          nullable: true
+        userPayFrom:
+          type: string
+          pattern: '^[0-9]+$'
+          nullable: true
+        feeTo:
+          type: string
+          pattern: '^[0-9]+$'
+          nullable: true
+        feeFrom:
+          type: string
+          pattern: '^[0-9]+$'
+          nullable: true
+        pnlToAbs:
+          type: string
+          pattern: '^[0-9]+$'
+          nullable: true
+        pnlToPct:
+          type: number
+          nullable: true
+    SlvBalance:
+      type: array
+      items:
+        $ref: '#/components/schemas/SlvBalanceItem'
+    SlvBalanceItem:
+      type: object
+      required:
+        - assetId
+        - amount
+      properties:
+        assetId:
+          type: string
+        amount:
+          type: string
+          pattern: '^[0-9]+$'

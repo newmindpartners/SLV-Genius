@@ -1,0 +1,78 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "properties": {
+        "count": {
+            "type": "number"
+        },
+        "next": {
+            "type": "string"
+        },
+        "previous": {
+            "type": "string"
+        },
+        "results": {
+            "items": {
+                "allOf": [
+                    {
+                        "properties": {
+                            "subType": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "subType",
+                            "type"
+                        ],
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "apyBoost": {
+                                "type": "string"
+                            },
+                            "assetName": {
+                                "type": "string"
+                            },
+                            "imageUrl": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "policyId": {
+                                "type": "string"
+                            },
+                            "stackableWith": {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            "vestingBoost": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "assetName",
+                            "imageUrl",
+                            "name",
+                            "policyId",
+                            "stackableWith"
+                        ],
+                        "type": "object"
+                    }
+                ]
+            },
+            "type": "array"
+        }
+    },
+    "required": [
+        "count",
+        "results"
+    ],
+    "type": "object"
+}
+

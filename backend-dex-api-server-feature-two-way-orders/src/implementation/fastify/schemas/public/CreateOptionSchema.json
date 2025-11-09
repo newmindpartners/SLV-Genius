@@ -1,0 +1,86 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "allOf": [
+        {
+            "properties": {
+                "walletAddress": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "walletAddress"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "collateralUtxo": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "walletRewardAddresses": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "walletUnusedAddresses": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "walletUsedAddresses": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "collateralUtxo",
+                "walletUnusedAddresses",
+                "walletUsedAddresses"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "baseAssetAmount": {
+                    "type": "string"
+                },
+                "baseAssetId": {
+                    "type": "string"
+                },
+                "baseAssetPrice": {
+                    "type": "string"
+                },
+                "baseAssetShortName": {
+                    "type": "string"
+                },
+                "endDate": {
+                    "type": "string"
+                },
+                "quoteAssetId": {
+                    "type": "string"
+                },
+                "quoteAssetShortName": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "baseAssetAmount",
+                "baseAssetId",
+                "baseAssetPrice",
+                "baseAssetShortName",
+                "endDate",
+                "quoteAssetId",
+                "quoteAssetShortName"
+            ],
+            "type": "object"
+        }
+    ]
+}
+

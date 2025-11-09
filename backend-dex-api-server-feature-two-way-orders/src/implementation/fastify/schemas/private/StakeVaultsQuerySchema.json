@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "properties": {
+        "count": {
+            "type": "number"
+        },
+        "cursor": {
+            "type": "string"
+        },
+        "filterByWalletStakeKeyHash": {
+            "type": "string"
+        }
+    },
+    "type": "object"
+}
+

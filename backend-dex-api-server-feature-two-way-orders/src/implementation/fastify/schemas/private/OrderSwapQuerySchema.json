@@ -1,0 +1,100 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "properties": {
+        "count": {
+            "type": "number"
+        },
+        "cursor": {
+            "type": "string"
+        },
+        "filterByAssetId": {
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
+        },
+        "filterByCreatedGte": {
+            "type": "string"
+        },
+        "filterByCreatedLte": {
+            "type": "string"
+        },
+        "filterByFromAssetId": {
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
+        },
+        "filterByMaxPrice": {
+            "type": "string"
+        },
+        "filterByMinPrice": {
+            "type": "string"
+        },
+        "filterByOrderSwapStatus": {
+            "enum": [
+                "CANCELLED",
+                "EXPIRED",
+                "FAILED",
+                "FILLED",
+                "FILL_INIT",
+                "FILL_ONCHAIN",
+                "FILL_SUBMIT",
+                "OPEN",
+                "OPEN_INIT",
+                "OPEN_ONCHAIN",
+                "OPEN_SUBMIT",
+                "PENDING",
+                "SCHEDULED"
+            ],
+            "type": "string"
+        },
+        "filterByOrderSwapType": {
+            "enum": [
+                "FILL_BEST_AVAILABLE",
+                "FILL_DIRECT",
+                "LIMIT"
+            ],
+            "type": "string"
+        },
+        "filterByOwner": {
+            "type": "boolean"
+        },
+        "filterByToAssetId": {
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
+        },
+        "filterByWalletStakeKeyHash": {
+            "type": "string"
+        },
+        "orderId": {
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
+        },
+        "search": {
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
+        },
+        "sortSwapOrders": {
+            "enum": [
+                "+created",
+                "+fromAssetAmount",
+                "+serviceFee",
+                "+toAssetAmount",
+                "-created",
+                "-fromAssetAmount",
+                "-serviceFee",
+                "-toAssetAmount"
+            ],
+            "type": "string"
+        }
+    },
+    "type": "object"
+}
+

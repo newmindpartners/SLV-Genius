@@ -1,0 +1,33 @@
+[source]
+type = "N2N"
+address = ["Tcp", "preprod-node.world.dev.cardano.org:30000"]
+magic = "preprod"
+min_depth = 1
+
+[source.mapper]
+include_transaction_details = true
+include_block_end_events = true
+
+# [source.intersect]
+# type = "Point"
+# value = [104639131, "52158287432ea2e3a21a7be562c0fbf9e1808f0bf1db5dd2d1f2883c8310e71e"]
+
+[[filters]]
+type = "Selection"
+
+[filters.check]
+predicate = "variant_in"
+argument = ["Transaction","RollBack", "BlockEnd",]
+
+[sink]
+type = "Webhook"
+url = "http://dex-api:3000/cardano/event-oura"
+authorization = "basic dXNlcjpwYXNz"
+timeout = 30000
+error_policy = "Continue"
+
+[sink.retry_policy]
+max_retries = 1000
+backoff_unit =  5000
+backoff_factor = 2
+max_backoff = 100000

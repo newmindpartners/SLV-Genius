@@ -1,0 +1,121 @@
+# Circle CI configuration file.
+
+version: 2.1
+
+parameters:
+  force-push-docker-image:
+    description: Forces pushing the docker image to the container registry. (Normally only images built from main are pushed)
+    type: boolean
+    default: false
+
+orbs:
+  gcp-gcr: circleci/gcp-gcr@0.15.0
+
+jobs:
+  build-job:
+    parameters:
+      branch:
+        type: string
+      tag:
+         type: string
+    machine: { image: ubuntu-2204:2024.01.1 }
+    steps:
+      - checkout
+      - gcp-gcr/gcr-auth:
+          google-project-id: GCLOUD_PROJECT_ID
+          google-compute-region: GCLOUD_COMPUTE_REGION
+          google-compute-zone: GCLOUD_COMPUTE_ZONE
+          gcloud-service-key: GCLOUD_SERVICE_KEY
+          registry-url: $GC_ARTIFACT_REPOSITORY_LOCATION
+      - run:
+          name: Log build debug information.
+          command: |
+              echo "--- CURRENT TIME ---"
+              date --utc
+              echo "--- FORCE PUSH DOCKER IMAGE ---"
+              echo "<< pipeline.parameters.force-push-docker-image >>"
+              echo "--- CURRENT BRANCH ---"
+              git branch --show-current
+              echo "--- LAST COMMITS ---"
+              git --no-pager log -n 25
+      - gcp-gcr/build-image:
+          image: dex/api
+          path: .
+          tag: << parameters.tag >>
+          extra_build_args: --build-arg CI_REPO_URL="<< pipeline.project.git_url >>" --build-arg CI_BUILD_URL="${CIRCLE_BUILD_URL}" --build-arg CI_BUILD="$CIRCLE_BUILD_URL"  --build-arg CI_REVISION="<<pipeline.git.revision>>" --build-arg CI_BUILD_TIME="$(date --iso-8601=seconds --utc)"
+          registry-url: $GC_ARTIFACT_REPOSITORY_LOCATION
+          google-project-id: GCLOUD_PROJECT_ID
+      - when:
+          condition: << pipeline.parameters.force-push-docker-image >>
+          steps:
+          - run:
+             name: ❗ Force pushing docker image! ❗
+             command: echo "Force pushing docker image."
+      - when:
+          condition:
+             or:
+               - equal: [ << parameters.branch >>, << pipeline.git.branch >> ]
+               - << pipeline.parameters.force-push-docker-image >>
+          steps:
+            # Push the Docker image only, if we are on the right branch.
+          - gcp-gcr/push-image:
+              registry-url: $GC_ARTIFACT_REPOSITORY_LOCATION
+              google-project-id: GCLOUD_PROJECT_ID
+              image: dex/api
+              tag: << parameters.tag >>
+      - when:
+          condition:
+             and:
+               - not:
+                   equal: [ << parameters.branch >>, << pipeline.git.branch >> ]
+               - not:
+                   << pipeline.parameters.force-push-docker-image >>
+          steps:
+            - run:
+                name: ⚠️ Not pushing Docker Image ⚠️
+                command: |
+                    echo "Branch: $CIRCLE_BRANCH (Not << parameters.branch >>!)"
+                    echo "Force push: '<< pipeline.parameters.force-push-docker-image >>'"
+      - run:
+          name: ✅ Build finished. Success! ✅
+          command: echo " ✅ Build finished. Success! ✅ "
+workflows:
+  version: 2
+  DEV:
+    jobs:
+      - build-job:
+          name: DEV
+          context:
+            - DEV
+          filters:
+            branches:
+              ignore:
+              - mainnet
+              - testnet
+          # DEV parameters:
+          branch: main
+          tag: latest
+  TESTNET:
+    jobs:
+      - build-job:
+          name: TESTNET
+          context:
+            - PROD
+          filters:
+            branches:
+              only: testnet
+          # TESTNET parameters:
+          branch: 'testnet'
+          tag: 'testnet'
+  MAINNET:
+    jobs:
+      - build-job:
+          name: MAINNET
+          context:
+            - PROD
+          filters:
+            branches:
+              only: mainnet
+          # MAINNET parameters:
+          branch: 'mainnet'
+          tag: 'mainnet'

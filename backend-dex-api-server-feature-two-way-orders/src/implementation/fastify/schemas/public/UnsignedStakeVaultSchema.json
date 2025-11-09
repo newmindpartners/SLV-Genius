@@ -1,0 +1,115 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "allOf": [
+        {
+            "properties": {
+                "stakeVaultId": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "stakeVaultId"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "stakingProjectId": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "stakingProjectId"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "lockDuration": {
+                    "enum": [
+                        "FLEX",
+                        "MONTHS_1",
+                        "MONTHS_12",
+                        "MONTHS_3",
+                        "MONTHS_6",
+                        "MONTHS_9"
+                    ],
+                    "type": "string"
+                },
+                "stakedAssetAmount": {
+                    "type": "string"
+                },
+                "stakingNfts": {
+                    "items": {
+                        "properties": {
+                            "assetName": {
+                                "type": "string"
+                            },
+                            "policyId": {
+                                "type": "string"
+                            },
+                            "subType": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "assetName",
+                            "policyId",
+                            "subType",
+                            "type"
+                        ],
+                        "type": "object"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "lockDuration",
+                "stakedAssetAmount",
+                "stakingNfts"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "transactionId": {
+                    "type": "string"
+                },
+                "transactionPayload": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "transactionId",
+                "transactionPayload"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "transactionUrl": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "transactionUrl"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "unlocksAt": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "unlocksAt"
+            ],
+            "type": "object"
+        }
+    ]
+}
+

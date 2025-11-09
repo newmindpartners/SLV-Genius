@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "allOf": [
+    {
+      "properties": {
+        "walletAddress": {"type": "string"}
+      },
+      "required": ["walletAddress"],
+      "type": "object"
+    },
+    {
+      "properties": {
+        "collateralUtxo": {"type": "array", "items": {"type": "string"}},
+        "walletRewardAddresses": {"type": "array", "items": {"type": "string"}},
+        "walletUnusedAddresses": {"type": "array", "items": {"type": "string"}},
+        "walletUsedAddresses": {"type": "array", "items": {"type": "string"}}
+      },
+      "required": [
+        "collateralUtxo",
+        "walletUnusedAddresses",
+        "walletUsedAddresses"
+      ],
+      "type": "object"
+    },
+    {"properties": {"toAssetId": {"type": "string"}}, "required": ["toAssetId"], "type": "object"},
+    {"properties": {"toAssetName": {"type": "string"}}, "required": ["toAssetName"], "type": "object"},
+    {"properties": {"toAssetPolicyId": {"type": "string"}}, "required": ["toAssetPolicyId"], "type": "object"},
+    {"properties": {"toAssetAmount": {"type": "string"}}, "required": ["toAssetAmount"], "type": "object"},
+    {"properties": {"fromAssetId": {"type": "string"}}, "required": ["fromAssetId"], "type": "object"},
+    {"properties": {"fromAssetName": {"type": "string"}}, "required": ["fromAssetName"], "type": "object"},
+    {"properties": {"fromAssetPolicyId": {"type": "string"}}, "required": ["fromAssetPolicyId"], "type": "object"},
+    {"properties": {"fromAssetAmount": {"type": "string"}}, "required": ["fromAssetAmount"], "type": "object"},
+    {
+      "properties": {
+        "effectiveFromDate": {"type": "string"},
+        "effectiveUntilDate": {"type": "string"}
+      },
+      "type": "object"
+    }
+  ]
+}
+
+

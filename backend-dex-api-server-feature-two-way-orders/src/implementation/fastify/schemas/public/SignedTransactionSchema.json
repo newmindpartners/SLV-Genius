@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "eventType": {
+      "enum": [
+        "optionEvent",
+        "orderSaleEvent",
+        "orderSwapEvent",
+        "twoWayOrderEvent",
+        "smartVaultEvent",
+        "stakeVaultEvent",
+        "yieldFarmingEvent"
+      ],
+      "type": "string"
+    },
+    "transactionId": {
+      "type": "string"
+    },
+    "transactionPayload": {
+      "type": "string"
+    },
+    "transactionSignature": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "eventType",
+    "transactionId",
+    "transactionPayload",
+    "transactionSignature"
+  ],
+  "type": "object"
+}

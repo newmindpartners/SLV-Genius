@@ -1,0 +1,171 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "properties": {
+        "assetPair": {
+            "properties": {
+                "assetOne": {
+                    "allOf": [
+                        {
+                            "properties": {
+                                "assetId": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "assetId"
+                            ],
+                            "type": "object"
+                        },
+                        {
+                            "properties": {
+                                "assetId": {
+                                    "type": "string"
+                                },
+                                "assetName": {
+                                    "type": "string"
+                                },
+                                "decimalPrecision": {
+                                    "type": "number"
+                                },
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "iconUrl": {
+                                    "type": "string"
+                                },
+                                "longName": {
+                                    "type": "string"
+                                },
+                                "policyId": {
+                                    "type": "string"
+                                },
+                                "referenceAssetAmount": {
+                                    "type": "string"
+                                },
+                                "referenceAssetId": {
+                                    "type": "string"
+                                },
+                                "shortName": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "assetId",
+                                "assetName",
+                                "decimalPrecision",
+                                "iconUrl",
+                                "longName",
+                                "policyId",
+                                "shortName"
+                            ],
+                            "type": "object"
+                        }
+                    ]
+                },
+                "assetTwo": {
+                    "allOf": [
+                        {
+                            "properties": {
+                                "assetId": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "assetId"
+                            ],
+                            "type": "object"
+                        },
+                        {
+                            "properties": {
+                                "assetId": {
+                                    "type": "string"
+                                },
+                                "assetName": {
+                                    "type": "string"
+                                },
+                                "decimalPrecision": {
+                                    "type": "number"
+                                },
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "iconUrl": {
+                                    "type": "string"
+                                },
+                                "longName": {
+                                    "type": "string"
+                                },
+                                "policyId": {
+                                    "type": "string"
+                                },
+                                "referenceAssetAmount": {
+                                    "type": "string"
+                                },
+                                "referenceAssetId": {
+                                    "type": "string"
+                                },
+                                "shortName": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "assetId",
+                                "assetName",
+                                "decimalPrecision",
+                                "iconUrl",
+                                "longName",
+                                "policyId",
+                                "shortName"
+                            ],
+                            "type": "object"
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "assetOne",
+                "assetTwo"
+            ],
+            "type": "object"
+        },
+        "data": {
+            "items": {
+                "properties": {
+                    "earnedPriceAssetAmount": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number"
+                    },
+                    "roiPercent": {
+                        "type": "number"
+                    },
+                    "timestamp": {
+                        "type": "number"
+                    },
+                    "winratePercent": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "earnedPriceAssetAmount",
+                    "price",
+                    "roiPercent",
+                    "timestamp"
+                ],
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "priceAssetId": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "assetPair",
+        "data",
+        "priceAssetId"
+    ],
+    "type": "object"
+}
+

@@ -1,0 +1,194 @@
+# Circle CI configuration file.
+
+version: 2.1
+
+orbs:
+  gcp-gcr: circleci/gcp-gcr@0.15.0
+
+jobs:
+  build-and-deploy-dex-client-to-gke:
+    working_directory: ~/repo
+    machine: { image: ubuntu-2204:2024.01.1 }
+    resource_class: large
+    parameters:
+      deployment_branch: { type: string, default: 'main' }
+      cardano_network: { type: string, default: 'preprod' }
+      sentry_environment: { type: string, default: 'development-preprod' }
+      api_url: { type: string, default: 'preprod' }
+      tag: { type: string }
+      prefix: { type: string }
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - checkout
+      - restore_cache:
+          keys:
+            - v2-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v2-dependencies-
+      - run:
+          name: Init env vars
+          command: |
+            export GOOGLE_APPLICATION_CREDENTIALS="$HOME/gcloud-service-key.json"
+            echo $GCLOUD_SERVICE_FIREBASE_AR_KEY > $HOME/gcloud-service-key.json
+            echo $SERVICE_ACCOUNT_TOKEN_CREATOR_ACCOUNT_KEY > $HOME/token-creator-key.json
+            ls $HOME
+            cat $HOME/gcloud-service-key.json
+      - run:
+          name: Update Git Submodules
+          command: |
+            set -x
+            git submodule update --init --remote release-notes
+            git submodule status release-notes
+      - run:
+          name: Install dependencies
+          command: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - .
+      - run:
+          name: Type check
+          command: yarn type-check
+      - run:
+          name: Build distribution
+          command: |
+            export SENTRY_RELEASE=$(./node_modules/.bin/sentry-cli releases propose-version)
+            export VITE_SENTRY_ENVIRONMENT=<< parameters.sentry_environment >>
+            export VITE_API_URL=<< parameters.api_url >>
+            export VITE_CARDANO_NETWORK=<< parameters.cardano_network >>
+            yarn build
+      #
+      # TODO: Fix sentry create deployment #1261
+      #
+      #- when:
+      #    condition:
+      #      equal: [<< parameters.deployment_branch >>, << pipeline.git.branch >>]
+      #    steps:
+      #      - run:
+      #          name: Create release and notify Sentry of deploy
+      #          command: |
+      #            export SENTRY_ORG=gyeld-gmbh
+      #            export SENTRY_PROJECT=dex-client
+      #            export SENTRY_RELEASE=$(./node_modules/.bin/sentry-cli releases propose-version)
+      #            export SENTRY_ENVIRONMENT=<< parameters.sentry_environment >>
+      #
+      #            yarn run sentry-cli releases new -p $SENTRY_PROJECT $SENTRY_RELEASE
+      #            yarn run sentry-cli releases set-commits $SENTRY_RELEASE --auto --ignore-missing
+      #            yarn run sentry-cli releases files $SENTRY_RELEASE upload-sourcemaps ./dist/assets --url-prefix '~/assets'
+      #            yarn run sentry-cli releases finalize $SENTRY_RELEASE
+      #            yarn run sentry-cli releases deploys $SENTRY_RELEASE new -e $SENTRY_ENVIRONMENT
+      - run:
+          name: Calculate Docker Tags
+          command: |
+            CURRENT_COMMIT=$(git rev-parse HEAD)
+            echo "Current commit (git rev-parse HEAD):"
+            echo " $CURRENT_COMMIT"
+
+            REMOTE_HEAD_COMMIT=$(git rev-parse origin/<< pipeline.git.branch >>);
+            echo "Remote << pipeline.git.branch >> head commit (git rev-parse origin/<< pipeline.git.branch >>):"
+            echo " $REMOTE_HEAD_COMMIT"
+
+            # Only tag when this is really the most recent commit.
+            if [ "$CURRENT_COMMIT" == "$REMOTE_HEAD_COMMIT" ]; then
+                echo "<< pipeline.git.branch >> branch AND the most recent commit -> add << parameters.tag >> tag."
+                LATEST_TAG=",<< parameters.tag >>"
+            else
+                echo "Not on << pipeline.git.branch >> branch or not the most recent commit -> do NOT add << parameters.tag >> tag."
+                LATEST_TAG=
+            fi
+
+            echo "export DOCKER_TAGS=\"<< parameters.prefix >>-${CIRCLE_SHA1}${LATEST_TAG}\"" >> $BASH_ENV
+            echo "export CURRENT_COMMIT=\"$CURRENT_COMMIT\"" >> $BASH_ENV
+
+            # Debug:
+            echo "=== BASH ENV:==="
+            cat $BASH_ENV
+            echo "================"
+      - gcp-gcr/gcr-auth:
+          google-project-id: GCLOUD_PROJECT_ID
+          google-compute-region: GCLOUD_COMPUTE_REGION
+          google-compute-zone: GCLOUD_COMPUTE_ZONE
+          gcloud-service-key: GCLOUD_SERVICE_KEY
+          registry-url: $GC_ARTIFACT_REPOSITORY_LOCATION
+      - gcp-gcr/build-image:
+          image: dex/dex-client
+          path: .
+          extra_build_args: --build-arg CI_REPO_URL="<< pipeline.project.git_url >>" --build-arg CI_BUILD_URL="${CIRCLE_BUILD_URL}" --build-arg  CI_REVISION="$CURRENT_COMMIT" --build-arg CI_BUILD_TIME="$(date --iso-8601=seconds --utc)"
+          registry-url: $GC_ARTIFACT_REPOSITORY_LOCATION
+          google-project-id: GCLOUD_PROJECT_ID
+          tag: $DOCKER_TAGS
+      - when:
+          condition:
+            { equal: [<< parameters.deployment_branch >>, << pipeline.git.branch >>] }
+          steps:
+            - gcp-gcr/push-image:
+                image: dex/dex-client
+                registry-url: $GC_ARTIFACT_REPOSITORY_LOCATION
+                google-project-id: GCLOUD_PROJECT_ID
+                tag: $DOCKER_TAGS
+      - when:
+          condition:
+            not:
+              equal: [<< parameters.deployment_branch >>, << pipeline.git.branch >>]
+          steps:
+            - run:
+                name: ⚠️ Not on the << parameters.deployment_branch >> branch! Not pushing the docker image. ❌️
+                command: |
+                  echo "⚠️ Not on the << parameters.deployment_branch >> branch! Not pushing the docker image. ❌️"
+
+      - run:
+          name: ✅ Build finished. Success! ✅
+          command: echo " ✅ Build finished. Success! ✅ "
+workflows:
+  DEV:
+    jobs:
+      - build-and-deploy-dex-client-to-gke:
+          context: [DEV]
+          name: build-and-deploy-DEV
+          filters:
+            branches:
+              ignore:
+                - mainnet
+                - testnet
+          # DEV parameters:
+          deployment_branch: 'main'
+          cardano_network: 'preprod'
+          sentry_environment: 'development-preprod'
+          api_url: 'https://dev.api.geniusyield.co'
+          tag: latest
+          prefix: dev
+  TESTNET:
+    jobs:
+      - build-and-deploy-dex-client-to-gke:
+          context: [PROD]
+          name: build-and-deploy-TESTNET
+          filters:
+            branches:
+              only: testnet
+          # TESTNET parameters:
+          deployment_branch: 'testnet'
+          cardano_network: 'preprod'
+          sentry_environment: 'production-preprod'
+          api_url: 'https://testnet.api.geniusyield.co'
+          tag: testnet
+          prefix: testnet
+  MAINNET:
+    jobs:
+      - build-and-deploy-dex-client-to-gke:
+          context: [PROD]
+          name: build-and-deploy-MAINNET
+          filters:
+            branches:
+              only: mainnet
+          # MAINNET parameters:
+          deployment_branch: 'mainnet'
+          cardano_network: 'mainnet'
+          sentry_environment: 'production-mainnet'
+          api_url: 'https://api.geniusyield.co'
+          tag: mainnet
+          prefix: mainnet

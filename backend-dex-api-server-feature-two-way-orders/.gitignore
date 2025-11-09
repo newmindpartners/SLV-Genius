@@ -1,0 +1,27 @@
+# Generated files
+dist/
+node_modules/
+
+# Local env var
+.local.env
+
+# vscode
+.vscode/
+
+# Yarn
+yarn-error.log
+
+# OSX
+.DS_Store
+
+# Emacs
+.projectile
+
+# IntelliJ
+.idea
+
+# By default ignore migrations
+# Commit force to commit migrations on release
+prisma/migrations/*
+
+.temp

@@ -1,0 +1,6 @@
+[submodule "release-notes"]
+	path = release-notes
+	url = git@github.com:geniusyield/release-notes.git
+[submodule "dex-api-schema"]
+	path = dex-api-schema
+	url = https://github.com/geniusyield/dex-api-schema

@@ -1,0 +1,52 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "properties": {
+        "baseAssetId": {
+            "type": "string"
+        },
+        "data": {
+            "items": {
+                "properties": {
+                    "close": {
+                        "type": "number"
+                    },
+                    "high": {
+                        "type": "number"
+                    },
+                    "low": {
+                        "type": "number"
+                    },
+                    "open": {
+                        "type": "number"
+                    },
+                    "time": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "close",
+                    "high",
+                    "low",
+                    "open",
+                    "time"
+                ],
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "priceAssetId": {
+            "type": "string"
+        },
+        "quoteAssetId": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "baseAssetId",
+        "data",
+        "priceAssetId",
+        "quoteAssetId"
+    ],
+    "type": "object"
+}
+

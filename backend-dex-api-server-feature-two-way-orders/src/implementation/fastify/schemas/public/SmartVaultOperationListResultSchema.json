@@ -1,0 +1,162 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "properties": {
+        "count": {
+            "type": "number"
+        },
+        "next": {
+            "type": "string"
+        },
+        "previous": {
+            "type": "string"
+        },
+        "results": {
+            "items": {
+                "allOf": [
+                    {
+                        "properties": {
+                            "smartVaultId": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "smartVaultId"
+                        ],
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "smartVaultOperationId": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "smartVaultOperationId"
+                        ],
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "assets": {
+                                "items": {
+                                    "properties": {
+                                        "asset": {
+                                            "allOf": [
+                                                {
+                                                    "properties": {
+                                                        "assetId": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "assetId"
+                                                    ],
+                                                    "type": "object"
+                                                },
+                                                {
+                                                    "properties": {
+                                                        "assetId": {
+                                                            "type": "string"
+                                                        },
+                                                        "assetName": {
+                                                            "type": "string"
+                                                        },
+                                                        "decimalPrecision": {
+                                                            "type": "number"
+                                                        },
+                                                        "enabled": {
+                                                            "type": "boolean"
+                                                        },
+                                                        "iconUrl": {
+                                                            "type": "string"
+                                                        },
+                                                        "longName": {
+                                                            "type": "string"
+                                                        },
+                                                        "policyId": {
+                                                            "type": "string"
+                                                        },
+                                                        "referenceAssetAmount": {
+                                                            "type": "string"
+                                                        },
+                                                        "referenceAssetId": {
+                                                            "type": "string"
+                                                        },
+                                                        "shortName": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "assetId",
+                                                        "assetName",
+                                                        "decimalPrecision",
+                                                        "iconUrl",
+                                                        "longName",
+                                                        "policyId",
+                                                        "shortName"
+                                                    ],
+                                                    "type": "object"
+                                                }
+                                            ]
+                                        },
+                                        "assetAmount": {
+                                            "type": "string"
+                                        },
+                                        "assetId": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "assetAmount",
+                                        "assetId"
+                                    ],
+                                    "type": "object"
+                                },
+                                "type": "array"
+                            },
+                            "creatorStakeKeyHash": {
+                                "type": "string"
+                            },
+                            "operationType": {
+                                "enum": [
+                                    "DEPOSIT",
+                                    "WITHDRAW"
+                                ],
+                                "type": "string"
+                            },
+                            "status": {
+                                "enum": [
+                                    "CONFIRMED",
+                                    "FAILED",
+                                    "PENDING"
+                                ],
+                                "type": "string"
+                            },
+                            "transactionDate": {
+                                "type": "string"
+                            },
+                            "transactionHash": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "assets",
+                            "creatorStakeKeyHash",
+                            "operationType",
+                            "status",
+                            "transactionHash"
+                        ],
+                        "type": "object"
+                    }
+                ]
+            },
+            "type": "array"
+        }
+    },
+    "required": [
+        "count",
+        "results"
+    ],
+    "type": "object"
+}
+

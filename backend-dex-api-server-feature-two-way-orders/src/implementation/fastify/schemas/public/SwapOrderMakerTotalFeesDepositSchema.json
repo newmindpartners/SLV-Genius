@@ -1,0 +1,47 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "allOf": [
+        {
+            "properties": {
+                "depositAmount": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        {
+            "properties": {
+                "transactionFeeAmount": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        {
+            "properties": {
+                "makerFromAssetFeeAmount": {
+                    "type": "string"
+                },
+                "makerFromAssetFeePercent": {
+                    "type": "string"
+                },
+                "makerLovelaceFlatFeeAmount": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        {
+            "properties": {
+                "transactionTotalFeesAmount": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "transactionTotalFeesAmount"
+            ],
+            "type": "object"
+        }
+    ]
+}
+

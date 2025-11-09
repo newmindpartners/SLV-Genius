@@ -1,0 +1,20 @@
+{
+  "projects": {
+    "default": "genius-yield"
+  },
+  "targets": {
+    "genius-yield": {
+      "hosting": {
+        "dex-dev": [
+          "dex-dev"
+        ],
+        "testnet": [
+          "dex-testnet"
+        ],
+        "mainnet": [
+          "dex-mainnet"
+        ]
+      }
+    }
+  }
+}

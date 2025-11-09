@@ -1,0 +1,255 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "properties": {
+        "count": {
+            "type": "number"
+        },
+        "next": {
+            "type": "string"
+        },
+        "previous": {
+            "type": "string"
+        },
+        "results": {
+            "items": {
+                "allOf": [
+                    {
+                        "properties": {
+                            "tradingWalletId": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tradingWalletId"
+                        ],
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "tradingWalletStakeKeyHash": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "tradingWalletStakeKeyHash"
+                        ],
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "stakeKeyUrl": {
+                                "type": [
+                                    "null",
+                                    "string"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "stakeKeyUrl"
+                        ],
+                        "type": "object"
+                    },
+                    {
+                        "properties": {
+                            "assetOne": {
+                                "allOf": [
+                                    {
+                                        "properties": {
+                                            "assetId": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "assetId"
+                                        ],
+                                        "type": "object"
+                                    },
+                                    {
+                                        "properties": {
+                                            "assetId": {
+                                                "type": "string"
+                                            },
+                                            "assetName": {
+                                                "type": "string"
+                                            },
+                                            "decimalPrecision": {
+                                                "type": "number"
+                                            },
+                                            "enabled": {
+                                                "type": "boolean"
+                                            },
+                                            "iconUrl": {
+                                                "type": "string"
+                                            },
+                                            "longName": {
+                                                "type": "string"
+                                            },
+                                            "policyId": {
+                                                "type": "string"
+                                            },
+                                            "referenceAssetAmount": {
+                                                "type": "string"
+                                            },
+                                            "referenceAssetId": {
+                                                "type": "string"
+                                            },
+                                            "shortName": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "assetId",
+                                            "assetName",
+                                            "decimalPrecision",
+                                            "iconUrl",
+                                            "longName",
+                                            "policyId",
+                                            "shortName"
+                                        ],
+                                        "type": "object"
+                                    }
+                                ]
+                            },
+                            "assetTwo": {
+                                "allOf": [
+                                    {
+                                        "properties": {
+                                            "assetId": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "assetId"
+                                        ],
+                                        "type": "object"
+                                    },
+                                    {
+                                        "properties": {
+                                            "assetId": {
+                                                "type": "string"
+                                            },
+                                            "assetName": {
+                                                "type": "string"
+                                            },
+                                            "decimalPrecision": {
+                                                "type": "number"
+                                            },
+                                            "enabled": {
+                                                "type": "boolean"
+                                            },
+                                            "iconUrl": {
+                                                "type": "string"
+                                            },
+                                            "longName": {
+                                                "type": "string"
+                                            },
+                                            "policyId": {
+                                                "type": "string"
+                                            },
+                                            "referenceAssetAmount": {
+                                                "type": "string"
+                                            },
+                                            "referenceAssetId": {
+                                                "type": "string"
+                                            },
+                                            "shortName": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "assetId",
+                                            "assetName",
+                                            "decimalPrecision",
+                                            "iconUrl",
+                                            "longName",
+                                            "policyId",
+                                            "shortName"
+                                        ],
+                                        "type": "object"
+                                    }
+                                ]
+                            },
+                            "earnedAdaAssetAmount": {
+                                "type": [
+                                    "null",
+                                    "string"
+                                ]
+                            },
+                            "profitabilityHistory": {
+                                "items": {
+                                    "properties": {
+                                        "roiPercent": {
+                                            "type": "number"
+                                        },
+                                        "timestamp": {
+                                            "type": "number"
+                                        }
+                                    },
+                                    "required": [
+                                        "timestamp"
+                                    ],
+                                    "type": "object"
+                                },
+                                "type": "array"
+                            },
+                            "profitabilityWindowInterval": {
+                                "anyOf": [
+                                    {
+                                        "enum": [
+                                            "1d",
+                                            "1mo",
+                                            "1w",
+                                            "1y",
+                                            "3mo",
+                                            "6mo"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    {
+                                        "type": "null"
+                                    }
+                                ]
+                            },
+                            "roiPercent": {
+                                "type": [
+                                    "null",
+                                    "number"
+                                ]
+                            },
+                            "startDate": {
+                                "type": "string"
+                            },
+                            "tradesCount": {
+                                "type": "string"
+                            },
+                            "winRatePercent": {
+                                "type": [
+                                    "null",
+                                    "number"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "assetOne",
+                            "assetTwo",
+                            "earnedAdaAssetAmount",
+                            "profitabilityHistory",
+                            "profitabilityWindowInterval",
+                            "roiPercent",
+                            "tradesCount",
+                            "winRatePercent"
+                        ],
+                        "type": "object"
+                    }
+                ]
+            },
+            "type": "array"
+        }
+    },
+    "required": [
+        "count",
+        "results"
+    ],
+    "type": "object"
+}
+

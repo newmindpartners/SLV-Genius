@@ -1,0 +1,28 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "allOf": [
+        {
+            "properties": {
+                "walletStakeKeyHash": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "walletStakeKeyHash"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "walletBalance": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "walletBalance"
+            ],
+            "type": "object"
+        }
+    ]
+}
+

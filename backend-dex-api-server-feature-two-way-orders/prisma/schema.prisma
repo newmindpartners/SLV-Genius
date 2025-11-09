@@ -1,0 +1,1231 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Asset {
+  assetId   String @id @map("asset_id")
+  policyId  String @map("policy_id")
+  assetName String @map("asset_name")
+
+  iconUrl          String? @map("icon_url")
+  longName         String? @map("long_name")
+  shortName        String? @map("short_name")
+  decimalPrecision Int     @default(0) @map("decimal_precision")
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  webEnabled Boolean @default(false) @map("web_enabled")
+
+  project             Project[]
+  stakingAssetVesting StakingAssetVesting[]
+
+  liquidityPoolAsset LiquidityPoolAsset[]
+
+  tradingWalletAssetOne TradingWallet[] @relation(name: "TradingWalletAssetOne")
+  tradingWalletAssetTwo TradingWallet[] @relation(name: "TradingWalletAssetTwo")
+
+  tradingPairBaseAsset  TradingPair[] @relation(name: "TradingPairBaseAsset")
+  tradingPairQuoteAsset TradingPair[] @relation(name: "TradingPairQuoteAsset")
+
+  @@unique([policyId, assetName])
+  @@map("asset")
+}
+
+model Project {
+  projectId String @id @default(uuid()) @map("project_id") @db.Uuid
+
+  name             String
+  description      String
+  imageLogoUrl     String  @map("image_logo_url")
+  shortDescription String  @map("short_description")
+  projectReportUrl String? @map("project_report_url")
+
+  discordUrl       String? @map("discord_url")
+  mediaEmail       String? @map("media_email")
+  mediaMediumUrl   String? @map("media_medium_url")
+  pitchDeckUrl     String? @map("pitchdeck_url")
+  telegramUrl      String? @map("telegram_url")
+  twitterUrl       String? @map("twitter_url")
+  websiteUrl       String? @map("website_url")
+  whitePaperUrl    String? @map("whitepaper_url")
+  mediaYoutubeUrl  String? @map("media_youtube_url")
+  privacyPolicyUrl String? @map("privacy_policy_url")
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  asset   Asset  @relation(fields: [assetId], references: [assetId])
+  assetId String @map("asset_id")
+
+  teamMember   Json?
+  roadmapItem  Json?
+  keyFeature   Json?
+  technology   Json?
+  tokenomics   Json?
+  tokenUtility Json?
+
+  orderSaleProject OrderSaleProject[]
+  stakingProject   StakingProject[]
+
+  @@map("project")
+}
+
+model OrderSaleProject {
+  orderSaleProjectId String @id @default(uuid()) @map("order_sale_project_id") @db.Uuid
+
+  baseAssetAllocationAmount       BigInt  @map("base_asset_allocation_amount")
+  baseAssetTotalTokenSupplyAmount BigInt? @map("base_asset_total_token_supply_amount")
+
+  vestingPeriod      String   @map("vesting_period")
+  distributionDate   DateTime @map("distribution_date")
+  distributionMethod String   @map("distribution_method")
+
+  feePercent          Float  @map("gx_fee_percent")
+  feeAddress          String @map("fee_address")
+  sellerPublicKeyHash String @map("seller_pubkey_hash")
+
+  webEnabled Boolean @default(false) @map("web_enabled")
+
+  fundingMethod String? @map("funding_method")
+  lockupPeriod  String? @map("lockup_period")
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  projectId String  @map("project_id") @db.Uuid
+  project   Project @relation(fields: [projectId], references: [projectId])
+
+  round Round[]
+
+  @@map("order_sale_project")
+}
+
+model Round {
+  roundId String @id @default(uuid()) @map("round_id") @db.Uuid
+
+  number Int
+
+  endDate   DateTime @map("end_date")
+  startDate DateTime @map("start_date")
+
+  orderBaseAssetMinAllocation BigInt @map("order_base_asset_min_allocation")
+  orderBaseAssetMaxAllocation BigInt @map("order_base_asset_max_allocation")
+
+  priceUsd      BigInt? @map("price_usd")
+  priceLovelace BigInt? @map("price_lovelace")
+
+  eligibilityDescription    String? @map("eligibility_description")
+  quoteAssetRaisedAmount    BigInt  @map("quote_asset_raised_amount")
+  baseAssetSubmittedAmount  BigInt  @map("base_asset_submitted_amount")
+  baseAssetAllocationAmount BigInt  @map("base_asset_allocation_amount")
+
+  saleRule RoundSaleRule @map("sale_rule")
+
+  isClosed  Boolean @default(false) @map("is_closed")
+  isSoldOut Boolean @default(false) @map("is_soldout")
+
+  scriptAddress String? @map("script_address")
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  orderSaleProjectId String           @map("order_sale_project_id") @db.Uuid
+  orderSaleProject   OrderSaleProject @relation(fields: [orderSaleProjectId], references: [orderSaleProjectId])
+
+  orderSale      OrderSale[]
+  roundWhitelist RoundWhitelist[]
+
+  @@map("round")
+}
+
+enum RoundSaleRule {
+  PUBLIC_SALE_SINGLE_BUY  @map("public_sale_single_buy")
+  PRIVATE_SALE_SINGLE_BUY @map("private_sale_single_buy")
+  PUBLIC_SALE_MULTI_BUY   @map("public_sale_multi_buy")
+  PRIVATE_SALE_MULTI_BUY  @map("private_sale_multi_buy")
+
+  @@map("round_sale_rule")
+}
+
+model RoundWhitelist {
+  roundWhitelistId String @id @default(uuid()) @map("round_whitelist_id") @db.Uuid
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  walletStakeKeyHash String @map("wallet_stake_key_hash")
+
+  round   Round  @relation(fields: [roundId], references: [roundId])
+  roundId String @map("round_id") @db.Uuid
+
+  @@unique([roundId, walletStakeKeyHash])
+  @@map("round_whitelist")
+}
+
+model Country {
+  countryId String @id @default(uuid()) @map("country_id") @db.Uuid
+
+  countryCode String  @unique @map("code")
+  name        String?
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  userKyc                   UserKyc[]
+  orderSaleBlacklistCountry OrderSaleBlacklistCountry[]
+
+  @@map("country")
+}
+
+model OrderSaleBlacklistCountry {
+  orderSaleBlacklistCountryId String @id @default(uuid()) @map("order_sale_blacklist_country_id") @db.Uuid
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  country   Country @relation(fields: [countryId], references: [countryId])
+  countryId String  @unique @map("country_id") @db.Uuid
+
+  @@map("order_sale_blacklist_country")
+}
+
+enum UserType {
+  INDIVIDUAL
+  COMPANY
+
+  @@map("user_type")
+}
+
+model User {
+  userId String @id @default(uuid()) @map("user_id") @db.Uuid
+
+  userType UserType @map("user_type")
+
+  walletStakeKeyHash String @unique @map("wallet_stake_key_hash")
+
+  acceptedTermsDate    DateTime? @map("accepted_terms_date")
+  acceptedTermsVersion String?   @map("accepted_terms_version")
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  userKyc               UserKyc?
+  orderSale             OrderSale[]
+  orderSwap             OrderSwap[]
+  twoWayOrder           TwoWayOrder[]
+  stakeVault            StakeVault[]
+  tradingWallet         TradingWallet[]
+  tradingWalletFollower TradingWalletFollower[]
+  walletConnectEvent    WalletConnectEvent[]
+
+  @@map("user")
+}
+
+model WalletConnectEvent {
+  walletConnectEventId String @id @default(uuid()) @map("wallet_connect_event_id") @db.Uuid
+
+  created DateTime @default(now())
+
+  userId String @map("user_id") @db.Uuid
+  user   User   @relation(fields: [userId], references: [userId])
+
+  walletType String @map("wallet_type")
+
+  @@map("wallet_connect_event")
+}
+
+model UserKyc {
+  userKycId String @id @default(uuid()) @map("user_kyc_id") @db.Uuid
+
+  kycExternalId String? @unique @map("kyc_external_id")
+  kycProvider   String  @map("kyc_provider")
+
+  reviewDate   DateTime?        @map("review_date")
+  reviewResult KycReviewResult? @map("review_result")
+  reviewStatus String?          @map("review_status")
+  rejectReason String?          @map("reject_reason")
+
+  latestKycValidationDate DateTime? @map("latest_kyc_validation_date")
+  isLatestKycValidResult  Boolean   @default(false) @map("is_latest_kyc_valid_result")
+
+  documentExpiryDate DateTime? @map("doc_expiry_date")
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  userId String @unique @map("user_id") @db.Uuid
+  user   User   @relation(fields: [userId], references: [userId])
+
+  countryId String?  @map("country_id") @db.Uuid
+  country   Country? @relation(fields: [countryId], references: [countryId])
+
+  kycEvent KycEvent[] @relation("UserKycToKycEvent")
+  KycEvent KycEvent[] @relation("KycEventToUserKyc")
+
+  @@map("user_kyc")
+}
+
+model KycEvent {
+  kycEventId String @id @default(uuid()) @map("kyc_event_id") @db.Uuid
+
+  kycExternalId String @map("kyc_external_id")
+  userId        String @map("user_id") @db.Uuid
+
+  levelName    String?          @map("level_name")
+  reviewStatus String           @map("review_status")
+  reviewResult KycReviewResult? @map("review_result")
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  userKycId    String  @map("user_kyc_id") @db.Uuid
+  userKycEvent UserKyc @relation("UserKycToKycEvent", fields: [userKycId], references: [userKycId])
+  userKyc      UserKyc @relation("KycEventToUserKyc", fields: [kycExternalId], references: [kycExternalId])
+
+  @@map("kyc_event")
+}
+
+enum KycReviewResult {
+  RED
+  GREEN
+
+  @@map("kyc_review_result")
+}
+
+model Event {
+  eventId String @id @default(uuid()) @map("event_id") @db.Uuid
+
+  streamId      String @map("stream_id") @db.Uuid
+  streamVersion Int    @map("stream_version")
+
+  eventType    EventType @map("event_type")
+  eventPayload Json      @map("event_payload")
+  eventVersion Int       @default(1) @map("event_version")
+
+  created DateTime @default(now())
+
+  transactionHash String? @map("transaction_hash")
+  blockHash       String? @map("block_hash")
+  blockSlot       BigInt? @map("block_slot")
+
+  @@unique([streamId, streamVersion])
+  @@index([streamId])
+  @@index([blockSlot])
+  @@index([transactionHash])
+  @@map("event")
+}
+
+// There are utilities that expect event types to follow certain conventions
+// These are:
+// - on-chain events need to be named `ONCHAIN__SUCCESS` and `ONCHAIN__FAILURE`
+// - order swap events need to be named `ORDER_SWAP`
+// - smart vault events need to be named `SMART_VAULT`
+enum EventType {
+  ORDER_SWAP__OPEN_INIT__REQUEST
+  ORDER_SWAP__OPEN_INIT__SUCCESS
+  ORDER_SWAP__OPEN_INIT__FAILURE
+
+  ORDER_SWAP__OPEN_SUBMIT__SUCCESS
+  ORDER_SWAP__OPEN_SUBMIT__FAILURE
+
+  ORDER_SWAP__OPEN_ONCHAIN__SUCCESS
+  ORDER_SWAP__OPEN_ONCHAIN__FAILURE
+
+  ORDER_SWAP__PARTIAL_FILL_ONCHAIN__SUCCESS
+  ORDER_SWAP__PARTIAL_FILL_ONCHAIN__FAILURE
+
+  ORDER_SWAP__FINAL_FILL_ONCHAIN__SUCCESS
+  ORDER_SWAP__FINAL_FILL_ONCHAIN__FAILURE
+
+  ORDER_SWAP__FILL_INIT__REQUEST
+  ORDER_SWAP__FILL_INIT__SUCCESS
+  ORDER_SWAP__FILL_INIT__FAILURE
+  ORDER_SWAP__FILL_SUBMIT__SUCCESS
+  ORDER_SWAP__FILL_SUBMIT__FAILURE
+  ORDER_SWAP__FILL_ONCHAIN__SUCCESS
+  ORDER_SWAP__FILL_ONCHAIN__FAILURE
+
+  ORDER_SWAP__CANCEL_INIT__REQUEST
+  ORDER_SWAP__CANCEL_INIT__SUCCESS
+  ORDER_SWAP__CANCEL_INIT__FAILURE
+  ORDER_SWAP__CANCEL_SUBMIT__SUCCESS
+  ORDER_SWAP__CANCEL_SUBMIT__FAILURE
+  ORDER_SWAP__CANCEL_ONCHAIN__SUCCESS
+  ORDER_SWAP__CANCEL_ONCHAIN__FAILURE
+
+  SMART_VAULT__OPEN_INIT__REQUEST
+  SMART_VAULT__OPEN_INIT__SUCCESS
+  SMART_VAULT__OPEN_INIT__FAILURE
+  SMART_VAULT__OPEN_SUBMIT__SUCCESS
+  SMART_VAULT__OPEN_SUBMIT__FAILURE
+  SMART_VAULT__OPEN_ONCHAIN__SUCCESS
+  SMART_VAULT__OPEN_ONCHAIN__FAILURE
+
+  SMART_VAULT__DEPOSIT_INIT__REQUEST
+  SMART_VAULT__DEPOSIT_INIT__SUCCESS
+  SMART_VAULT__DEPOSIT_INIT__FAILURE
+  SMART_VAULT__DEPOSIT_SUBMIT__SUCCESS
+  SMART_VAULT__DEPOSIT_SUBMIT__FAILURE
+  SMART_VAULT__DEPOSIT_ONCHAIN__SUCCESS
+  SMART_VAULT__DEPOSIT_ONCHAIN__FAILURE
+
+  SMART_VAULT__WITHDRAW_INIT__REQUEST
+  SMART_VAULT__WITHDRAW_INIT__SUCCESS
+  SMART_VAULT__WITHDRAW_INIT__FAILURE
+  SMART_VAULT__WITHDRAW_SUBMIT__SUCCESS
+  SMART_VAULT__WITHDRAW_SUBMIT__FAILURE
+  SMART_VAULT__WITHDRAW_ONCHAIN__SUCCESS
+  SMART_VAULT__WITHDRAW_ONCHAIN__FAILURE
+
+  SMART_VAULT__CLOSE_INIT__REQUEST
+  SMART_VAULT__CLOSE_INIT__SUCCESS
+  SMART_VAULT__CLOSE_INIT__FAILURE
+  SMART_VAULT__CLOSE_SUBMIT__SUCCESS
+  SMART_VAULT__CLOSE_SUBMIT__FAILURE
+  SMART_VAULT__CLOSE_ONCHAIN__SUCCESS
+  SMART_VAULT__CLOSE_ONCHAIN__FAILURE
+
+  @@map("event_type")
+}
+
+model OrderSwap {
+  orderSwapId String @id @default(uuid()) @map("order_swap_id") @db.Uuid
+
+  toAssetId   String @map("to_asset_id")
+  fromAssetId String @map("from_asset_id")
+
+  toAssetAmount   BigInt @map("to_asset_amount")
+  fromAssetAmount BigInt @map("from_asset_amount")
+
+  toAssetAmountTotalRemaining   BigInt @map("to_asset_amount_total_remaining")
+  fromAssetAmountTotalRemaining BigInt @map("from_asset_amount_total_remaining")
+
+  toAssetAmountTotalFilled   BigInt @map("to_asset_amount_total_filled")
+  fromAssetAmountTotalFilled BigInt @map("from_asset_amount_total_filled")
+
+  price            Float
+  priceNumerator   String? @map("price_numerator")
+  priceDenominator String? @map("price_denominator")
+
+  userId String? @map("user_id") @db.Uuid
+  user   User?   @relation(fields: [userId], references: [userId])
+
+  orderType                   OrderSwapOrderType? @map("order_type")
+  orderStatus                 OrderStatus?        @map("order_status")
+  orderStatusTransactionHash  String?             @map("order_status_transaction_hash")
+  cancellationTransactionHash String?             @map("cancellation_transaction_hash")
+
+  transactionFeeAmount             BigInt? @map("transaction_fee_amount")
+  cancellationTransactionFeeAmount BigInt? @map("cancellation_transaction_fee_amount")
+
+  takerLovelaceFlatFeeAmount BigInt? @map("taker_lovelace_flat_fee_amount")
+
+  // LIMIT EXCLUSIVE FIELDS
+  mintAssetId String? @unique @map("mint_asset_id")
+
+  depositAmount BigInt? @map("deposit_amount")
+
+  makerLovelaceFlatFeeAmount BigInt? @map("maker_lovelace_flat_fee_amount")
+  makerFromAssetFeePercent   Float?  @map("maker_from_asset_fee_percent")
+  makerFromAssetFeeAmount    BigInt? @map("maker_from_asset_fee_amount")
+
+  takerFromAssetFeePercent Float?  @map("taker_from_asset_fee_percent")
+  takerFromAssetFeeAmount  BigInt? @map("taker_from_asset_fee_amount")
+
+  utxoReferenceTransactionHash String? @map("utxo_reference_transaction_hash")
+  utxoReferenceIndex           Int?    @map("utxo_reference_index")
+
+  effectiveFromDate  DateTime? @map("effective_from_date")
+  effectiveUntilDate DateTime? @map("effective_until_date")
+
+  partialFillCount Int @map("partial_fill_count")
+
+  orderDate                DateTime  @default(now()) @map("order_date")
+  transactionDateOpen      DateTime? @map("transaction_date_open")
+  transactionDateFill      DateTime? @map("transaction_date_fill")
+  transactionDateFinalFill DateTime? @map("transaction_date_final_fill")
+  transactionDateCancel    DateTime? @map("transaction_date_cancel")
+
+  created DateTime @default(now())
+  updated DateTime @default(now())
+
+  orderSwapFill OrderSwapFill[]
+
+  @@index([mintAssetId])
+  @@map("order_swap")
+}
+
+model OrderSwapFill {
+  orderSwapFillId String @id @default(uuid()) @map("order_swap_fill_id") @db.Uuid
+
+  orderSwapId String    @map("order_swap_id") @db.Uuid
+  orderSwap   OrderSwap @relation(fields: [orderSwapId], references: [orderSwapId])
+
+  toAssetId   String @map("to_asset_id")
+  fromAssetId String @map("from_asset_id")
+
+  toAssetAmountFilled   BigInt @map("to_asset_amount_filled")
+  fromAssetAmountFilled BigInt @map("from_asset_amount_filled")
+
+  price            Float
+  priceNumerator   String? @map("price_numerator")
+  priceDenominator String? @map("price_denominator")
+
+  transactionHash     String?  @map("transaction_hash")
+  transactionDateFill DateTime @default(now()) @map("transaction_date_fill")
+
+  created DateTime @default(now())
+  updated DateTime @default(now())
+
+  @@index([transactionDateFill(sort: Desc)])
+  @@map("order_swap_fill")
+}
+
+/// Two-Way Orders (initial scaffold, parity with OrderSwap where applicable)
+model TwoWayOrder {
+  twoWayOrderId String @id @default(uuid()) @map("two_way_order_id") @db.Uuid
+
+  toAssetId   String @map("to_asset_id")
+  fromAssetId String @map("from_asset_id")
+
+  toAssetAmount   BigInt @map("to_asset_amount")
+  fromAssetAmount BigInt @map("from_asset_amount")
+
+  toAssetAmountTotalRemaining   BigInt @map("to_asset_amount_total_remaining")
+  fromAssetAmountTotalRemaining BigInt @map("from_asset_amount_total_remaining")
+
+  toAssetAmountTotalFilled   BigInt @map("to_asset_amount_total_filled")
+  fromAssetAmountTotalFilled BigInt @map("from_asset_amount_total_filled")
+
+  price            Float
+  priceNumerator   String? @map("price_numerator")
+  priceDenominator String? @map("price_denominator")
+
+  userId String? @map("user_id") @db.Uuid
+  user   User?   @relation(fields: [userId], references: [userId])
+
+  orderStatus OrderStatus? @map("order_status")
+
+  // NFT mint id for order reference (optional depending on TWO design)
+  mintAssetId String? @unique @map("mint_asset_id")
+
+  depositAmount BigInt? @map("deposit_amount")
+
+  makerLovelaceFlatFeeAmount BigInt? @map("maker_lovelace_flat_fee_amount")
+  makerFromAssetFeePercent   Float?  @map("maker_from_asset_fee_percent")
+  makerFromAssetFeeAmount    BigInt? @map("maker_from_asset_fee_amount")
+
+  takerLovelaceFlatFeeAmount BigInt? @map("taker_lovelace_flat_fee_amount")
+  takerFromAssetFeePercent   Float?  @map("taker_from_asset_fee_percent")
+  takerFromAssetFeeAmount    BigInt? @map("taker_from_asset_fee_amount")
+
+  utxoReferenceTransactionHash String? @map("utxo_reference_transaction_hash")
+  utxoReferenceIndex           Int?    @map("utxo_reference_index")
+
+  effectiveFromDate  DateTime? @map("effective_from_date")
+  effectiveUntilDate DateTime? @map("effective_until_date")
+
+  partialFillCount Int @default(0) @map("partial_fill_count")
+
+  orderDate             DateTime  @default(now()) @map("order_date")
+  transactionDateOpen   DateTime? @map("transaction_date_open")
+  transactionDateFill   DateTime? @map("transaction_date_fill")
+  transactionDateCancel DateTime? @map("transaction_date_cancel")
+
+  created DateTime @default(now())
+  updated DateTime @default(now())
+
+  // Slot when order was opened (used for rollback decisions)
+  openSlot Int @default(0) @map("open_slot")
+
+  // Back-reference to fills
+  twoWayOrderFill     TwoWayOrderFill[]
+  TwoWayOrderActivity TwoWayOrderActivity[]
+  twoWayOrderPendingCancel TwoWayOrderPendingCancel[]
+
+  // Accumulators and performance (computed off fills)
+  toAssetNetReceived BigInt @default(0) @map("to_asset_net_received")
+  pnlToAbs           BigInt @default(0) @map("pnl_to_abs")
+  pnlToPct           Float  @default(0) @map("pnl_to_pct")
+
+  @@unique([utxoReferenceTransactionHash, utxoReferenceIndex])
+  @@index([mintAssetId])
+  @@index([orderStatus])
+  @@index([toAssetId, fromAssetId])
+  @@map("two_way_order")
+}
+
+/// Raw TWO events captured from Oura for idempotent indexing and replay safety
+model TwoWayOrderEvent {
+  twoWayOrderEventId String @id @default(uuid()) @map("two_way_order_event_id") @db.Uuid
+
+  txHash    String  @map("tx_hash")
+  blockHash String? @map("block_hash")
+  slot      Int     @map("slot")
+
+  eventType String @map("event_type") // CREATE | FILL | CANCEL
+  txIndex   Int    @default(0) @map("tx_index") // output index for CREATE, input index for FILL/CANCEL
+
+  payloadJson String @map("payload_json")
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  @@unique([txHash, eventType, txIndex])
+  @@index([slot])
+  @@map("two_way_order_event")
+}
+
+/// Pending TWO submit records to allow immediate projection on submit
+model TwoWayOrderPendingSubmit {
+  transactionId String @id @map("transaction_id")
+  userId        String @map("user_id") @db.Uuid
+  transactionHash String? @map("transaction_hash")
+
+  fromAssetId        String?   @map("from_asset_id")
+  fromAssetAmount    BigInt?   @map("from_asset_amount")
+  toAssetId          String?   @map("to_asset_id")
+  toAssetAmount      BigInt?   @map("to_asset_amount")
+  straightPrice      String?   @map("straight_price")
+  depositAmount      BigInt?   @map("deposit_amount")
+  makerLovelaceFlatFeeAmount BigInt? @map("maker_lovelace_flat_fee_amount")
+  makerFromAssetFeePercent   Float?  @map("maker_from_asset_fee_percent")
+  makerFromAssetFeeAmount    BigInt? @map("maker_from_asset_fee_amount")
+  effectiveFromDate  DateTime? @map("effective_from_date")
+  effectiveUntilDate DateTime? @map("effective_until_date")
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  @@map("two_way_order_pending_submit")
+}
+
+model TwoWayOrderPendingCancel {
+  transactionId String @id @map("transaction_id")
+  userId        String @map("user_id") @db.Uuid
+
+  twoWayOrderId String      @map("two_way_order_id") @db.Uuid
+  twoWayOrder   TwoWayOrder @relation(fields: [twoWayOrderId], references: [twoWayOrderId])
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  @@map("two_way_order_pending_cancel")
+}
+
+/// Per-transaction fills for Two-Way Orders (slot-based for rollback)
+model TwoWayOrderFill {
+  twoWayOrderFillId String @id @default(uuid()) @map("two_way_order_fill_id") @db.Uuid
+
+  twoWayOrderId String      @map("two_way_order_id") @db.Uuid
+  twoWayOrder   TwoWayOrder @relation(fields: [twoWayOrderId], references: [twoWayOrderId])
+
+  toAssetId   String @map("to_asset_id")
+  fromAssetId String @map("from_asset_id")
+
+  toAssetAmountFilled   BigInt @default(0) @map("to_asset_amount_filled")
+  fromAssetAmountFilled BigInt @default(0) @map("from_asset_amount_filled")
+
+  price            Float?
+  priceNumerator   String? @map("price_numerator")
+  priceDenominator String? @map("price_denominator")
+
+  // Optional breakdown for user receipts and fees (computed at fill time)
+  toAssetAmountUserReceived BigInt? @map("to_asset_amount_user_received")
+  fromAssetAmountUserPaid   BigInt? @map("from_asset_amount_user_paid")
+  toAssetFeeAmount          BigInt? @map("to_asset_fee_amount")
+  fromAssetFeeAmount        BigInt? @map("from_asset_fee_amount")
+
+  txHash  String @map("tx_hash")
+  txIndex Int    @default(0) @map("tx_index")
+  slot    Int    @map("slot")
+
+  transactionDateFill DateTime @default(now()) @map("transaction_date_fill")
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  @@unique([twoWayOrderId, txHash, txIndex])
+  @@index([slot])
+  @@map("two_way_order_fill")
+}
+
+/// Human-readable activity timeline for Two-Way Orders
+enum TwoWayOrderActivityType {
+  OPEN
+  FILL
+  CANCEL
+
+  @@map("two_way_order_activity_type")
+}
+
+model TwoWayOrderActivity {
+  twoWayOrderActivityId String @id @default(uuid()) @map("two_way_order_activity_id") @db.Uuid
+
+  twoWayOrderId String      @map("two_way_order_id") @db.Uuid
+  twoWayOrder   TwoWayOrder @relation(fields: [twoWayOrderId], references: [twoWayOrderId])
+
+  activityType TwoWayOrderActivityType @map("activity_type")
+
+  // optional deltas for future PnL and balances (kept nullable for MVP)
+  fromDelta BigInt? @map("from_delta")
+  toDelta   BigInt? @map("to_delta")
+
+  txHash String? @map("tx_hash")
+  slot   Int?    @map("slot")
+
+  message String? @map("message")
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  @@index([twoWayOrderId])
+  @@index([slot])
+  @@map("two_way_order_activity")
+}
+
+enum OrderStatus {
+  PENDING
+  OPEN
+  FAILED
+  FILLED
+  CANCELLED
+
+  @@map("order_status")
+}
+
+enum OrderSwapOrderType {
+  LIMIT
+  FILL_DIRECT
+  FILL_BEST_AVAILABLE
+
+  @@map("order_swap_order_type")
+}
+
+enum SmartVaultStatus {
+  PENDING
+  OPEN
+  CLOSED
+  FAILED
+
+  @@map("smart_vault_status")
+}
+
+model SmartVaultAsset {
+  smartVaultAssetId String @id @default(uuid()) @map("smart_vault_asset_id") @db.Uuid
+
+  created DateTime @default(now())
+
+  smartVaultId String     @map("smart_vault_id") @db.Uuid
+  smartVault   SmartVault @relation(fields: [smartVaultId], references: [smartVaultId])
+
+  assetId String @map("asset_id")
+
+  @@unique([smartVaultId, assetId])
+  @@map("smart_vault_asset")
+}
+
+model SmartVault {
+  smartVaultId String @id @default(uuid()) @map("smart_vault_id") @db.Uuid
+
+  status              SmartVaultStatus @map("status")
+  stakeKeyHashRef     String?          @map("stake_key_hash_ref")
+  creatorStakeKeyHash String?          @map("creator_stake_key_hash")
+  // Should be made @unique in future to prevent multiple smart vault referencing same utxo.
+  // Relaxed for now to allow for easier testing.
+  mintAssetId         String?          @map("mint_asset_id")
+
+  utxoReferenceTransactionHash String? @map("utxo_reference_transaction_hash")
+  utxoReferenceIndex           Int?    @map("utxo_reference_index")
+
+  smartVaultStrategyId         String? @map("smart_vault_strategy_id") @db.Uuid
+  smartVaultStrategyConfigJson Json?   @map("smart_vault_strategy_config_json")
+
+  transactionDateOpen  DateTime? @map("transaction_date_open")
+  transactionDateClose DateTime? @map("transaction_date_close")
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  smartVaultAsset     SmartVaultAsset[]
+  smartVaultOperation SmartVaultOperation[]
+
+  @@map("smart_vault")
+}
+
+enum SmartVaultOperationType {
+  DEPOSIT
+  WITHDRAW
+
+  @@map("smart_vault_operation_type")
+}
+
+enum SmartVaultOperationStatus {
+  PENDING
+  CONFIRMED
+  FAILED
+
+  @@map("smart_vault_operation_status")
+}
+
+model SmartVaultOperation {
+  smartVaultOperationId String @id @default(uuid()) @map("smart_vault_operation_id")
+
+  operationType       SmartVaultOperationType   @map("operation_type")
+  status              SmartVaultOperationStatus @map("status")
+  creatorStakeKeyHash String                    @map("creator_stake_key_hash")
+  mintAssetId         String?                   @map("mint_asset_id")
+
+  transactionHash String    @map("transaction_hash")
+  transactionDate DateTime? @map("transaction_date")
+
+  assetId     String @map("asset_id")
+  assetAmount BigInt @map("asset_amount")
+
+  smartVaultId String     @map("smart_vault_id") @db.Uuid
+  smartVault   SmartVault @relation(fields: [smartVaultId], references: [smartVaultId])
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  @@unique([transactionHash, assetId, operationType])
+  @@map("smart_vault_operation")
+}
+
+model TradingWallet {
+  tradingWalletId String @id @default(uuid()) @map("trading_wallet_id") @db.Uuid
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  name    String? @unique @map("name")
+  iconUrl String? @map("icon_url")
+
+  profitabilityWindowInterval String? @map("profitability_window_interval")
+  profitabilityBinInterval    String? @map("profitability_bin_interval")
+  profitabilityHistory        Json?   @map("profitability_history")
+  roiPercent                  Float?  @map("roi_percent")
+  earnedPriceAssetAmount      BigInt? @map("earned_price_asset_amount")
+
+  assetOneId String @map("asset_one_id")
+  assetOne   Asset  @relation(name: "TradingWalletAssetOne", fields: [assetOneId], references: [assetId])
+
+  assetTwoId String @map("asset_two_id")
+  assetTwo   Asset  @relation(name: "TradingWalletAssetTwo", fields: [assetTwoId], references: [assetId])
+
+  tradingWalletUserId String @map("trading_wallet_user_id") @db.Uuid
+  tradingWalletUser   User   @relation(fields: [tradingWalletUserId], references: [userId])
+
+  tradingWalletFollower TradingWalletFollower[]
+
+  @@unique([tradingWalletUserId, assetOneId, assetTwoId])
+  @@map("trading_wallet")
+}
+
+model TradingWalletFollower {
+  tradingWalletFollowerId String @id @default(uuid()) @map("trading_wallet_follower_id") @db.Uuid
+
+  created DateTime @default(now())
+
+  tradingWalletId String        @map("trading_wallet_id") @db.Uuid
+  tradingWallet   TradingWallet @relation(fields: [tradingWalletId], references: [tradingWalletId])
+
+  userId String @map("user_id") @db.Uuid
+  user   User   @relation(fields: [userId], references: [userId])
+
+  @@unique([tradingWalletId, userId])
+  @@map("trading_wallet_follower")
+}
+
+model OrderSale {
+  orderSaleId String @id @default(uuid()) @map("order_sale_id") @db.Uuid
+
+  created DateTime @default(now())
+
+  userId String @map("user_id") @db.Uuid
+  user   User   @relation(fields: [userId], references: [userId])
+
+  roundId String @map("round_id") @db.Uuid
+  round   Round  @relation(fields: [roundId], references: [roundId])
+
+  orderSaleEvent OrderSaleEvent[]
+
+  @@map("order_sale")
+}
+
+model OrderSaleEvent {
+  eventId   String             @id @default(uuid()) @map("event_id") @db.Uuid
+  eventType OrderSaleEventType @map("event_type")
+
+  created DateTime @default(now())
+
+  baseAssetId     String @map("base_asset_id")
+  baseAssetAmount BigInt @map("base_asset_amount")
+
+  transaction     Transaction? @relation(fields: [transactionHash], references: [transactionHash])
+  transactionHash String?      @map("transaction_hash")
+
+  orderSaleId String    @map("order_sale_id") @db.Uuid
+  orderSale   OrderSale @relation(fields: [orderSaleId], references: [orderSaleId])
+
+  @@map("order_sale_event")
+}
+
+enum OrderSaleEventType {
+  OPEN
+  FILL
+  CANCEL
+
+  @@map("order_sale_event_type")
+}
+
+model LiquidityPool {
+  liquidityPoolId String @id @default(uuid()) @map("liquidity_pool_id") @db.Uuid
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  asset LiquidityPoolAsset[]
+
+  @@map("liquidity_pool")
+}
+
+model TradingPair {
+  tradingPairId String @id @default(uuid()) @map("trading_pair_id") @db.Uuid
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  baseAssetId String @map("base_asset_id")
+  baseAsset   Asset  @relation(name: "TradingPairBaseAsset", fields: [baseAssetId], references: [assetId])
+
+  quoteAssetId String @map("quote_asset_id")
+  quoteAsset   Asset  @relation(name: "TradingPairQuoteAsset", fields: [quoteAssetId], references: [assetId])
+
+  @@map("trading_pair")
+}
+
+model LiquidityPoolAsset {
+  asset   Asset  @relation(fields: [assetId], references: [assetId])
+  assetId String @map("asset_id")
+
+  liquidityPool   LiquidityPool @relation(fields: [liquidityPoolId], references: [liquidityPoolId])
+  liquidityPoolId String        @map("liquidity_pool_id") @db.Uuid
+
+  @@id([liquidityPoolId, assetId])
+  @@map("liquidity_pool_asset")
+}
+
+model SmartVaultStrategy {
+  smartVaultStrategyId String @id @default(uuid()) @map("smart_vault_strategy_id") @db.Uuid
+
+  name                    String @map("name")
+  description             String @map("description")
+  configJsonSchema        String @map("config_json_schema")
+  numberOfAssetsSupported Int    @map("number_of_assets_supported")
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  @@map("smart_vault_strategy")
+}
+
+enum StakeVaultType {
+  FIXED_APY
+  REVENUE_AMPLIFYING
+}
+
+model StakeVault {
+  stakeVaultId String @id @default(uuid()) @map("stake_vault_id") @db.Uuid
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  startedAt    DateTime               @map("started_at")
+  unlocksAt    DateTime?              @map("unlocks_at")
+  lockDuration StakeVaultLockDuration @map("lock_duration")
+
+  type             StakeVaultType @default(FIXED_APY) @map("type")
+  lockApy          Float?         @map("lock_apy")
+  revenueAmplifier Float?         @map("revenue_amplifier")
+
+  stakingProjectId String         @map("staking_project_id") @db.Uuid
+  stakingProject   StakingProject @relation(fields: [stakingProjectId], references: [stakingProjectId])
+
+  userId String @map("user_id") @db.Uuid
+  user   User   @relation(fields: [userId], references: [userId])
+
+  stakeVaultEvent StakeVaultEvent[]
+
+  @@map("stake_vault")
+}
+
+model StakeVaultEvent {
+  stakeVaultEventId String              @id @default(uuid()) @map("stake_vault_event_id") @db.Uuid
+  eventType         StakeVaultEventType @map("event_type")
+
+  created DateTime  @default(now())
+  updated DateTime? @updatedAt
+
+  stakedAssetAmount BigInt   @map("staked_asset_amount")
+  eventDate         DateTime @map("event_date")
+
+  transaction     Transaction? @relation(fields: [transactionHash], references: [transactionHash])
+  transactionHash String?      @map("transaction_hash")
+
+  stakeVaultId String     @map("stake_vault_id") @db.Uuid
+  stakeVault   StakeVault @relation(fields: [stakeVaultId], references: [stakeVaultId])
+
+  stakeVaultEventNft StakeVaultEventNft[]
+
+  @@map("stake_vault_event")
+}
+
+enum StakeVaultEventType {
+  CREATE
+  ADD
+  UNSTAKE
+
+  @@map("stake_vault_event_type")
+}
+
+enum StakeVaultLockDuration {
+  FLEX
+  MONTHS_1
+  MONTHS_3
+  MONTHS_6
+  MONTHS_9
+  MONTHS_12
+
+  @@map("stake_vault_lock_duration")
+}
+
+model StakingProjectLockOption {
+  stakingProjectLockOptionId String @id @default(uuid()) @map("staking_project_lock_option_id") @db.Uuid
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  lockDuration     StakeVaultLockDuration @map("lock_duration")
+  apy              Float?                 @map("apy")
+  revenueAmplifier Float?                 @map("revenue_amplifier")
+
+  stakingProjectId String         @map("staking_project_id") @db.Uuid
+  stakingProject   StakingProject @relation(fields: [stakingProjectId], references: [stakingProjectId])
+
+  @@unique([stakingProjectId, lockDuration])
+  @@map("staking_project_lock_option")
+}
+
+model StakingProject {
+  stakingProjectId String @id @default(uuid()) @map("staking_project_id") @db.Uuid
+
+  projectId String  @map("project_id") @db.Uuid
+  project   Project @relation(fields: [projectId], references: [projectId])
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  signingServerUrl            String?        @map("signing_server_url")
+  stakedAssetTotalAmountLimit BigInt?        @map("staked_asset_total_amount_limit")
+  stakeVaultType              StakeVaultType @default(FIXED_APY) @map("stake_vault_type")
+  webEnabled                  Boolean        @default(true) @map("web_enabled")
+
+  stakeVault               StakeVault[]
+  stakingProjectNft        StakingProjectNft[]
+  stakingProjectLockOption StakingProjectLockOption[]
+
+  @@map("staking_project")
+}
+
+model StakingProjectNft {
+  stakingProjectNftId String @id @default(uuid()) @map("staking_project_nft_id") @db.Uuid
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  stakingProjectId String         @map("staking_project_id") @db.Uuid
+  stakingProject   StakingProject @relation(fields: [stakingProjectId], references: [stakingProjectId])
+
+  stakingNftType    String     @map("staking_nft_type")
+  stakingNftSubType String     @map("staking_nft_sub_type")
+  stakingNft        StakingNft @relation(fields: [stakingNftType, stakingNftSubType], references: [type, subType])
+
+  @@unique([stakingProjectId, stakingNftType, stakingNftSubType])
+  @@map("staking_project_nft")
+}
+
+model StakeVaultEventNft {
+  stakeVaultEventNftId String @id @default(uuid()) @map("stake_vault_event_nft_id") @db.Uuid
+
+  created DateTime @default(now())
+
+  stakeVaultEventId String           @map("stake_vault_event_id") @db.Uuid
+  stakeVaultEvent   StakeVaultEvent? @relation(fields: [stakeVaultEventId], references: [stakeVaultEventId])
+
+  stakingNftMintingDataAssetId String                 @map("staking_nft_minting_data_asset_id")
+  stakingNftMintingData        StakingNftMintingData? @relation(fields: [stakingNftMintingDataAssetId], references: [assetId])
+
+  @@unique([stakeVaultEventId, stakingNftMintingDataAssetId])
+  @@map("stake_vault_event_nft")
+}
+
+model StakingNftMintingData {
+  assetId   String @id @map("asset_id")
+  policyId  String @map("policy_id")
+  assetName String @map("asset_name")
+
+  created DateTime @default(now())
+  updated DateTime @default(now())
+
+  utilityDurationSeconds Int @default(0) @map("utility_duration_seconds")
+
+  stakingNftType     String               @map("staking_nft_type")
+  stakingNftSubType  String               @map("staking_nft_sub_type")
+  stakingNft         StakingNft           @relation(fields: [stakingNftType, stakingNftSubType], references: [type, subType])
+  stakeVaultEventNft StakeVaultEventNft[]
+
+  @@unique([policyId, assetName])
+  @@map("staking_nft_minting_data")
+}
+
+model StakingNft {
+  type          String   @map("type")
+  subType       String   @map("sub_type")
+  stackableWith String[] @map("stackable_with")
+
+  apyBoost Float? @map("apy_boost")
+
+  name     String  @map("name")
+  imageUrl String? @map("image_url")
+
+  created DateTime @default(now())
+  updated DateTime @updatedAt
+
+  stakingNftMintingData StakingNftMintingData[]
+  stakingProjectNft     StakingProjectNft[]
+
+  @@id([type, subType])
+  @@map("staking_nft")
+}
+
+model StakingAssetVesting {
+  stakingAssetVestingId String @id @map("staking_asset_vesting_id")
+
+  walletStakeKeyHash String @map("wallet_stake_key_hash")
+
+  assetId String? @map("asset_id")
+  asset   Asset?  @relation(fields: [assetId], references: [assetId])
+
+  assetAmount BigInt @map("asset_amount")
+
+  created DateTime @default(now())
+  updated DateTime @default(now())
+
+  @@unique([walletStakeKeyHash, assetId])
+  @@map("staking_asset_vesting")
+}
+
+model Block {
+  blockHash    String    @id @map("block_hash")
+  previousHash String?   @map("previous_hash")
+  number       BigInt?
+  epoch        BigInt?
+  slot         BigInt?
+  slotDate     DateTime? @map("slot_date")
+  isRollBack   Boolean   @default(false) @map("is_roll_back")
+
+  eventDate DateTime? @default(now()) @map("event_date")
+
+  transaction Transaction[]
+
+  @@map("block")
+}
+
+model Transaction {
+  transactionHash String @id @map("transaction_hash")
+
+  transactionFeeAmount BigInt @map("transaction_fee_amount")
+
+  transactionDate DateTime @default(now()) @map("transaction_date")
+
+  blockHash String? @map("block_hash")
+  block     Block?  @relation(fields: [blockHash], references: [blockHash])
+
+  isSubmitted Boolean @default(false) @map("is_submitted")
+
+  transactionInput  TransactionInput[]  @relation("TransactionInput")
+  transactionOutput TransactionOutput[] @relation("TransactionOutput")
+
+  orderSaleEvent  OrderSaleEvent[]
+  stakeVaultEvent StakeVaultEvent[]
+
+  created DateTime @default(now())
+  updated DateTime @default(now())
+
+  @@map("transaction")
+}
+
+model TransactionInput {
+  transactionInputId BigInt @id @default(autoincrement()) @map("id")
+
+  inputIndex           BigInt @map("input_index")
+  inputTransactionHash String @map("input_transaction_hash")
+
+  outputIndex           BigInt @map("output_index")
+  outputTransactionHash String @map("output_transaction_hash")
+
+  created DateTime @default(now())
+
+  transaction Transaction @relation("TransactionInput", fields: [inputTransactionHash], references: [transactionHash])
+
+  @@map("transaction_input")
+}
+
+model TransactionOutput {
+  transactionOutputId BigInt @id @default(autoincrement()) @map("id")
+
+  index BigInt
+
+  address        String  @map("address")
+  stakeAddress   String? @map("stake_address")
+  paymentAddress String? @map("payment_address")
+
+  datum Json? @map("datum")
+
+  created DateTime @default(now())
+
+  transactionHash String      @map("transaction_hash")
+  transaction     Transaction @relation("TransactionOutput", fields: [transactionHash], references: [transactionHash])
+
+  transactionOutputAssets TransactionOutputAsset[]
+
+  @@map("transaction_output")
+}
+
+model TransactionOutputAsset {
+  transactionOutputAssetsId BigInt @id @default(autoincrement()) @map("id")
+
+  policyId   String @map("policy_id")
+  assetId    String @map("asset_id")
+  assetAscii String @map("asset_ascii")
+  amount     BigInt
+
+  transactionOutput   TransactionOutput @relation(fields: [transactionOutputId], references: [transactionOutputId])
+  transactionOutputId BigInt            @map("transaction_output_id")
+
+  @@map("transaction_output_asset")
+}

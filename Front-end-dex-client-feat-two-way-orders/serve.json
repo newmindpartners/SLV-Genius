@@ -1,0 +1,46 @@
+{
+  "cleanUrls": false,
+  "headers": [
+    {
+      "source": "**/*",
+      "headers": [
+        {
+          "key": "X-Powered-By",
+          "value": "hidden"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000; includeSubDomains"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "no-referrer"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self' *.sentry.io *.geniusyield.co *.ladesk.com *.cookiebot.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.googletagmanager.com *.googleapis.com *.google.com *.google.ch *.google.de *.google.co.uk *.google.fr *.google.ca *.google.it *.google.es *.google.com.br *.sentry.io *.geniusyield.co *.ladesk.com *.cookiebot.com; style-src 'self' 'unsafe-inline' *.googleapis.com *.geniusyield.co *.ladesk.com *.cookiebot.com; img-src 'self' data: *.gstatic.com *.sentry.io *.google.com *.google.ch *.google.de *.google.co.uk *.google.fr *.google.ca *.google.it *.google.es *.google.com.br *.geniusyield.co *.ladesk.com *.cookiebot.com; connect-src 'self' *.sentry.io *.analytics.google.com *.google-analytics.com *.doubleclick.net *.geniusyield.co *.coinbase.com *.ladesk.com *.cookiebot.com; font-src 'self' *.gstatic.com *.geniusyield.co *.ladesk.com *.cookiebot.com; frame-src 'self' *.sentry.io *.geniusyield.co *.ladesk.com *.cookiebot.com *.nu.fi; object-src 'none'"
+        },        
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin"
+        },
+        {
+          "key": "Cross-Origin-Resource-Policy",
+          "value": "same-origin"
+        }
+      ]
+    }
+  ]
+}

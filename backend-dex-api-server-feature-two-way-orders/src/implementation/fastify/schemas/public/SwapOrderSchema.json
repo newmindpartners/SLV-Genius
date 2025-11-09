@@ -1,0 +1,504 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "allOf": [
+        {
+            "properties": {
+                "created": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "created"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "updated": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "updated"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "orderId": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "orderId"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "toAssetId": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "toAssetId"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "toAssetAmount": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "toAssetAmount"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "fromAssetId": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "fromAssetId"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "fromAssetAmount": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "fromAssetAmount"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "status": {
+                    "type": "string"
+                },
+                "statusTransactionId": {
+                    "type": "string"
+                },
+                "transactions": {
+                    "items": {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "transactionId": {
+                                        "type": "string"
+                                    },
+                                    "transactionUrl": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "transactionId",
+                                    "transactionUrl"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "isTransactionConfirmed": {
+                                        "type": "boolean"
+                                    },
+                                    "transactionDate": {
+                                        "type": "string"
+                                    },
+                                    "transactionHash": {
+                                        "type": "string"
+                                    },
+                                    "transactionType": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "isTransactionConfirmed",
+                                    "transactionType"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "status",
+                "statusTransactionId",
+                "transactions"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "fillFromAssetCount": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        {
+            "properties": {
+                "effectiveFromDate": {
+                    "type": "string"
+                },
+                "effectiveUntilDate": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        {
+            "properties": {
+                "orderType": {
+                    "enum": [
+                        "FILL_BEST_AVAILABLE",
+                        "FILL_DIRECT",
+                        "LIMIT"
+                    ],
+                    "type": "string"
+                }
+            },
+            "required": [
+                "orderType"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "fromAsset": {
+                    "allOf": [
+                        {
+                            "properties": {
+                                "assetId": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "assetId"
+                            ],
+                            "type": "object"
+                        },
+                        {
+                            "properties": {
+                                "assetId": {
+                                    "type": "string"
+                                },
+                                "assetName": {
+                                    "type": "string"
+                                },
+                                "decimalPrecision": {
+                                    "type": "number"
+                                },
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "iconUrl": {
+                                    "type": "string"
+                                },
+                                "longName": {
+                                    "type": "string"
+                                },
+                                "policyId": {
+                                    "type": "string"
+                                },
+                                "referenceAssetAmount": {
+                                    "type": "string"
+                                },
+                                "referenceAssetId": {
+                                    "type": "string"
+                                },
+                                "shortName": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "assetId",
+                                "assetName",
+                                "decimalPrecision",
+                                "iconUrl",
+                                "longName",
+                                "policyId",
+                                "shortName"
+                            ],
+                            "type": "object"
+                        }
+                    ]
+                },
+                "toAsset": {
+                    "allOf": [
+                        {
+                            "properties": {
+                                "assetId": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "assetId"
+                            ],
+                            "type": "object"
+                        },
+                        {
+                            "properties": {
+                                "assetId": {
+                                    "type": "string"
+                                },
+                                "assetName": {
+                                    "type": "string"
+                                },
+                                "decimalPrecision": {
+                                    "type": "number"
+                                },
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "iconUrl": {
+                                    "type": "string"
+                                },
+                                "longName": {
+                                    "type": "string"
+                                },
+                                "policyId": {
+                                    "type": "string"
+                                },
+                                "referenceAssetAmount": {
+                                    "type": "string"
+                                },
+                                "referenceAssetId": {
+                                    "type": "string"
+                                },
+                                "shortName": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "assetId",
+                                "assetName",
+                                "decimalPrecision",
+                                "iconUrl",
+                                "longName",
+                                "policyId",
+                                "shortName"
+                            ],
+                            "type": "object"
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "fromAsset",
+                "toAsset"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "minFillFromAssetAmount": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        {
+            "properties": {
+                "minFillToAssetAmount": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        {
+            "properties": {
+                "fromAssetAmountFilled": {
+                    "type": "string"
+                },
+                "toAssetAmountFilled": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "fromAssetAmountFilled",
+                "toAssetAmountFilled"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "fromAssetAmountRemaining": {
+                    "type": "string"
+                },
+                "toAssetAmountRemaining": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "fromAssetAmountRemaining",
+                "toAssetAmountRemaining"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "depositAmount": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        {
+            "properties": {
+                "transactionFeeAmount": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        {
+            "properties": {
+                "makerFromAssetFeeAmount": {
+                    "type": "string"
+                },
+                "makerFromAssetFeePercent": {
+                    "type": "string"
+                },
+                "makerLovelaceFlatFeeAmount": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        {
+            "properties": {
+                "takerFromAssetFeeAmount": {
+                    "type": "string"
+                },
+                "takerFromAssetFeePercent": {
+                    "type": "string"
+                },
+                "takerLovelaceFlatFeeAmount": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        {
+            "properties": {
+                "transactionTotalFeesAmount": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "transactionTotalFeesAmount"
+            ],
+            "type": "object"
+        },
+        {
+            "properties": {
+                "status": {
+                    "enum": [
+                        "CANCELLED",
+                        "EXPIRED",
+                        "FAILED",
+                        "FILLED",
+                        "FILL_INIT",
+                        "FILL_ONCHAIN",
+                        "FILL_SUBMIT",
+                        "OPEN",
+                        "OPEN_INIT",
+                        "OPEN_ONCHAIN",
+                        "OPEN_SUBMIT",
+                        "PENDING",
+                        "SCHEDULED"
+                    ],
+                    "type": "string"
+                },
+                "transactions": {
+                    "items": {
+                        "allOf": [
+                            {
+                                "properties": {
+                                    "transactionId": {
+                                        "type": "string"
+                                    },
+                                    "transactionUrl": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "transactionId",
+                                    "transactionUrl"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "isTransactionConfirmed": {
+                                        "type": "boolean"
+                                    },
+                                    "transactionDate": {
+                                        "type": "string"
+                                    },
+                                    "transactionHash": {
+                                        "type": "string"
+                                    },
+                                    "transactionType": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "isTransactionConfirmed",
+                                    "transactionType"
+                                ],
+                                "type": "object"
+                            },
+                            {
+                                "properties": {
+                                    "fromAssetAmountFilled": {
+                                        "type": [
+                                            "null",
+                                            "string"
+                                        ]
+                                    },
+                                    "toAssetAmountFilled": {
+                                        "type": [
+                                            "null",
+                                            "string"
+                                        ]
+                                    },
+                                    "transactionType": {
+                                        "enum": [
+                                            "CANCEL",
+                                            "FILL",
+                                            "OPEN",
+                                            "PARTIAL_FILL"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "transactionType"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "status",
+                "transactions"
+            ],
+            "type": "object"
+        }
+    ]
+}
+

@@ -1,0 +1,87 @@
+{
+  "$schema": "http://draft-07.schema.json",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "twoWayOrderId": {"type": "string"},
+      "toAssetId": {"type": "string"},
+      "fromAssetId": {"type": "string"},
+      "toAssetAmount": {"type": "string", "pattern": "^[0-9]+$"},
+      "fromAssetAmount": {"type": "string", "pattern": "^[0-9]+$"},
+      "toAssetAmountTotalRemaining": {"type": "string", "pattern": "^[0-9]+$"},
+      "fromAssetAmountTotalRemaining": {
+        "type": "string",
+        "pattern": "^[0-9]+$"
+      },
+      "toAssetAmountTotalFilled": {"type": "string", "pattern": "^[0-9]+$"},
+      "fromAssetAmountTotalFilled": {"type": "string", "pattern": "^[0-9]+$"},
+      "price": {"type": "number"},
+      "priceNumerator": {"type": ["string", "null"]},
+      "priceDenominator": {"type": ["string", "null"]},
+      "orderStatus": {"type": ["string", "null"]},
+      "mintAssetId": {"type": ["string", "null"]},
+      "depositAmount": {"type": ["string", "null"], "pattern": "^[0-9]+$"},
+      "makerLovelaceFlatFeeAmount": {
+        "type": ["string", "null"],
+        "pattern": "^[0-9]+$"
+      },
+      "makerFromAssetFeePercent": {"type": ["number", "null"]},
+      "makerFromAssetFeeAmount": {
+        "type": ["string", "null"],
+        "pattern": "^[0-9]+$"
+      },
+      "takerLovelaceFlatFeeAmount": {
+        "type": ["string", "null"],
+        "pattern": "^[0-9]+$"
+      },
+      "takerFromAssetFeePercent": {"type": ["number", "null"]},
+      "takerFromAssetFeeAmount": {
+        "type": ["string", "null"],
+        "pattern": "^[0-9]+$"
+      },
+      "utxoReferenceTransactionHash": {"type": ["string", "null"]},
+      "utxoReferenceIndex": {"type": ["number", "null"]},
+      "effectiveFromDate": {"type": ["string", "null"], "format": "date-time"},
+      "effectiveUntilDate": {"type": ["string", "null"], "format": "date-time"},
+      "partialFillCount": {"type": "number"},
+      "orderDate": {"type": "string", "format": "date-time"},
+      "transactionDateOpen": {
+        "type": ["string", "null"],
+        "format": "date-time"
+      },
+      "transactionDateFill": {
+        "type": ["string", "null"],
+        "format": "date-time"
+      },
+      "transactionDateCancel": {
+        "type": ["string", "null"],
+        "format": "date-time"
+      },
+      "created": {"type": "string", "format": "date-time"},
+      "updated": {"type": "string", "format": "date-time"},
+      "toAssetNetReceived": {"type": "string", "pattern": "^[0-9]+$"},
+      "pnlToAbs": {"type": "string", "pattern": "^[0-9]+$"},
+      "pnlToPct": {"type": "number"}
+    },
+    "required": [
+      "twoWayOrderId",
+      "toAssetId",
+      "fromAssetId",
+      "toAssetAmount",
+      "fromAssetAmount",
+      "toAssetAmountTotalRemaining",
+      "fromAssetAmountTotalRemaining",
+      "toAssetAmountTotalFilled",
+      "fromAssetAmountTotalFilled",
+      "price",
+      "partialFillCount",
+      "orderDate",
+      "created",
+      "updated",
+      "toAssetNetReceived",
+      "pnlToAbs",
+      "pnlToPct"
+    ]
+  }
+}

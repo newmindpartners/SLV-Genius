@@ -1,0 +1,229 @@
+openapi: 3.0.1
+info:
+  version: 1.0.0
+  title: Genius Yield Sumsub Client
+servers:
+  - url: https://api.sumsub.com
+paths:
+  /resources/accessTokens:
+    post:
+      operationId: createAccessToken
+      parameters:
+        - $ref: '#/components/parameters/userId'
+        - $ref: '#/components/parameters/levelName'
+        - $ref: '#/components/parameters/ttlInSecs'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SumsubAccessToken'
+  /resources/applicants:
+    post:
+      operationId: createApplicant
+      parameters:
+        - $ref: '#/components/parameters/levelName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SumsubCreateApplicant'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SumsubApplicant'
+  /resources/applicants/${applicantId}/one:
+    parameters:
+      - name: applicantId
+        in: path
+        explode: false
+        description: ID of an applicant
+        required: true
+        schema:
+          type: string
+          items:
+            type: string
+    get:
+      operationId: getApplicant
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SumsubApplicant'
+  /resources/applicants/-;externalUserId=${userId}/one:
+    parameters:
+      - name: userId
+        in: path
+        explode: false
+        required: true
+        description: ID of an user
+        schema:
+          type: string
+    get:
+      operationId: getApplicantByUserId
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SumsubApplicant'
+        '404':
+          description: Applicant by userId not found
+  /resources/applicants/${applicantId}/status:
+    parameters:
+      - name: applicantId
+        in: path
+        explode: false
+        description: ID of an applicant
+        required: true
+        schema:
+          type: string
+          items:
+            type: string
+    get:
+      operationId: getApplicantStatus
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SumsubApplicantStatus'
+components:
+  parameters:
+    userId:
+      in: query
+      name: userId
+      required: true
+      description: ID of an user
+      schema:
+        type: string
+    ttlInSecs:
+      in: query
+      name: ttlInSecs
+      required: true
+      description: access token time to live in seconds
+      schema:
+        type: number
+    levelName:
+      in: query
+      name: levelName
+      required: true
+      description: access token level name
+      schema:
+        type: string
+  schemas:
+    SumsubCreateApplicant:
+      type: object
+      required:
+        - sourceKey
+        - externalUserId
+      properties:
+        sourceKey:
+          type: string
+        externalUserId:
+          type: string
+    SumsubReviewResult:
+      type: object
+      required:
+        - reviewAnswer
+      properties:
+        reviewAnswer:
+          type: string
+    SumsubIdentityDocument:
+      type: object
+      required:
+        - idDocType
+        - validUntil
+      properties:
+        idDocType:
+          type: string
+        validUntil:
+          type: string
+          format: ISO8601
+    SumsubApplicantInfo:
+      type: object
+      required:
+        - country
+        - nationality
+      properties:
+        country:
+          type: string
+        nationality:
+          type: string
+        idDocs:
+          type: array
+          items:
+            $ref: '#/components/schemas/SumsubIdentityDocument'
+    SumsubAccessToken:
+      type: object
+      required:
+        - token
+      properties:
+        token:
+          type: string
+    SumsubApplicantReference:
+      type: object
+      required:
+        - applicantId
+      properties:
+        applicantId:
+          type: string
+    ApplicantId:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+    SumsubApplicant:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/ApplicantId'
+        - type: object
+          required:
+            - info
+            - createDate
+            - reviewDate
+          properties:
+            createDate:
+              type: string
+            reviewDate:
+              type: string
+            info:
+              type: object
+              allOf:
+                - $ref: '#/components/schemas/SumsubApplicantInfo'
+            reviewStatus:
+              type: object
+              allOf:
+                - $ref: '#/components/schemas/SumsubReviewResult'
+    SumsubApplicantStatus:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/SumsubApplicantReference'
+        - type: object
+          required:
+            - createDate
+            - reviewDate
+            - reviewStatus
+          properties:
+            levelName:
+              type: string
+            createDate:
+              type: string
+            reviewDate:
+              type: string
+            reviewStatus:
+              type: string
+            reviewResult:
+              type: object
+              allOf:
+                - $ref: '#/components/schemas/SumsubReviewResult'

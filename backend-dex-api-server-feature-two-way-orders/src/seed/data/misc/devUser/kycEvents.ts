@@ -1,0 +1,98 @@
+import * as Prisma from '@prisma/client';
+import {now} from '~/domain/utils/date.util';
+import {userKyc as preprodUserKyc} from './userKyc';
+import {userKyc2 as preprodUserKyc2} from './userKyc';
+
+export const kycEvents: Prisma.KycEvent[] = [
+  {
+    kycEventId: 'ea0898c3-be59-4869-8aeb-378eff4ddc0b',
+    kycExternalId: preprodUserKyc.kycExternalId || '',
+    userId: preprodUserKyc.userId,
+    userKycId: preprodUserKyc.userKycId,
+    levelName: 'basic-kyc-level',
+    reviewStatus: 'init',
+    reviewResult: null,
+    created: now(),
+    updated: now(),
+  },
+  {
+    kycEventId: 'f9ec1607-2d75-4e38-9406-9a679082c9be',
+    kycExternalId: preprodUserKyc.kycExternalId || '',
+    userId: preprodUserKyc.userId,
+    userKycId: preprodUserKyc.userKycId,
+    levelName: 'basic-kyc-level',
+    reviewStatus: 'init',
+    reviewResult: null,
+    created: now(),
+    updated: now(),
+  },
+  {
+    kycEventId: '04d07e01-e90a-4088-9927-615a8a6c200a',
+    kycExternalId: preprodUserKyc.kycExternalId || '',
+    userId: preprodUserKyc.userId,
+    userKycId: preprodUserKyc.userKycId,
+    levelName: 'basic-kyc-level',
+    reviewStatus: 'onHold',
+    reviewResult: null,
+    created: now(),
+    updated: now(),
+  },
+  {
+    kycEventId: 'c7f961b8-df1e-4031-b9e5-195eb9eebe5a',
+    kycExternalId: preprodUserKyc.kycExternalId || '',
+    userId: preprodUserKyc.userId,
+    userKycId: preprodUserKyc.userKycId,
+    levelName: 'basic-kyc-level',
+    reviewStatus: 'completed',
+    reviewResult: Prisma.KycReviewResult.GREEN,
+    created: now(),
+    updated: now(),
+  },
+];
+
+export const kycEvents2: Prisma.KycEvent[] = [
+  {
+    kycEventId: 'ea0898c3-be59-4869-8aeb-378eff4ddc0b',
+    kycExternalId: preprodUserKyc2.kycExternalId || '',
+    userId: preprodUserKyc2.userId,
+    userKycId: preprodUserKyc2.userKycId,
+    levelName: 'basic-kyc-level',
+    reviewStatus: 'init',
+    reviewResult: null,
+    created: now(),
+    updated: now(),
+  },
+  {
+    kycEventId: 'f9ec1607-2d75-4e38-9406-9a679082c9be',
+    kycExternalId: preprodUserKyc2.kycExternalId || '',
+    userId: preprodUserKyc2.userId,
+    userKycId: preprodUserKyc2.userKycId,
+    levelName: 'basic-kyc-level',
+    reviewStatus: 'init',
+    reviewResult: null,
+    created: now(),
+    updated: now(),
+  },
+  {
+    kycEventId: '04d07e01-e90a-4088-9927-615a8a6c200a',
+    kycExternalId: preprodUserKyc2.kycExternalId || '',
+    userId: preprodUserKyc2.userId,
+    userKycId: preprodUserKyc2.userKycId,
+    levelName: 'basic-kyc-level',
+    reviewStatus: 'onHold',
+    reviewResult: null,
+    created: now(),
+    updated: now(),
+  },
+  {
+    kycEventId: 'c7f961b8-df1e-4031-b9e5-195eb9eebe5a',
+    kycExternalId: preprodUserKyc2.kycExternalId || '',
+    userId: preprodUserKyc2.userId,
+    userKycId: preprodUserKyc2.userKycId,
+    levelName: 'basic-kyc-level',
+    reviewStatus: 'completed',
+    reviewResult: Prisma.KycReviewResult.GREEN,
+    created: now(),
+    updated: now(),
+  },
+];
