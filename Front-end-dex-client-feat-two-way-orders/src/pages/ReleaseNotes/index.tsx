@@ -1,7 +1,7 @@
 import { Grid, styled, Typography } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
 
-import markdown from '/release-notes/releases.md';
+// import markdown from '../../../release-notes/releases.md';
 
 const ReleaseNotes = (): JSX.Element => {
   const markdownComponents = {
@@ -36,7 +36,7 @@ const ReleaseNotes = (): JSX.Element => {
       <Typography variant="h2">Release Notes</Typography>
 
       <Container container flexWrap={'nowrap'} direction={'column'}>
-        <ReactMarkdown components={markdownComponents}>{markdown}</ReactMarkdown>
+        {/* <ReactMarkdown components={markdownComponents}>{markdown}</ReactMarkdown> */}
       </Container>
     </Grid>
   );
